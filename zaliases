@@ -1,0 +1,100 @@
+alias b='sudo bluetoothctl'
+
+alias blank='xset dpms force off'
+
+alias c='clear'
+
+alias cipserv='ssh -X s6sasarp@cipserv1.astro.uni-bonn.de'
+
+alias clmap='if [ -s ~/.cl.map ]; then xmodmap ~/.cl.map; fi'
+
+alias cs='cat /home/saeed/development/contacts/contacts.list | grep -i'
+
+alias e='exit'
+
+alias ea='gvim ~/.zaliases; source ~/.zshrc'
+
+alias expac="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -20"
+alias expacz="expac -s '%-30n %m' | sort -hk 2 | awk '{printf \"%s %.0f MiB\n\", $1, $2/1024/1024}' | column t"
+
+alias glog="c; git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+alias hs='s ip link set wlp6s0 down && s ip link set wlp0s29f7u3 up && sudo create_ap wlp0s29f7u3 tun0 Saeedz YZ7zHvNB'
+
+alias ipt='s ~/./.iptables.sh'
+alias iptp='s ~/./.iptables-reset.sh'
+
+alias isd='sudo ip link set enp10s8 up && sudo systemctl start dhcpcd'
+alias isdp='sudo systemctl stop dhcpcd && sudo ip link set enp10s8 down'
+
+alias jour='s journalctl'
+
+alias kl='gvim /var/log/kerio-kvc/error.log'
+alias ke='tail /var/log/kerio-kvc/error.log'
+alias kp='sudo /usr/sbin/kvpnc stop'
+alias kc='sudo /usr/sbin/kvpnc configure'
+alias ks='sudo /usr/sbin/kvpnc start'
+
+alias lb='pactl load-module module-loopback latency_msec=1'
+alias lbp='pactl unload-module module-loopback'
+
+alias lc='lein clean'
+alias lf='lein trampoline frodo'
+alias lcc='lein cljsbuild clean'
+alias ldc='lein do clean, cljsbuild auto'
+alias ltr='lein trampoline repl'
+alias ltca='lein trampoline cljsbuild auto'
+alias ltcc='lein trampoline cljsbuild clean'
+alias ltco='lein trampoline cljsbuild once'
+alias lrsh='lein ring server-headless'
+
+alias lock='gnome-screensaver-command --lock'
+
+alias logsh='/bin/zsh --login'
+
+alias mss='sudo systemctl start mysqld'
+alias msp='sudo systemctl stop mysqld'
+
+alias nm='syp wicd && sys NetworkManager'
+
+alias ov='~/.StudNet/./connect'
+
+alias pss='pacman -Ss'
+
+alias py='python'
+alias pys='python -m http.server'
+
+alias r='rspec'
+
+alias ramap='if [ -s ~/.ra.map ]; then xmodmap ~/.ra.map; fi'
+
+alias rc='rails c'
+alias rs='rails s'
+alias rcs='rails c -s'
+
+alias s='sudo'
+
+alias sp='s pacman'
+alias spr='sp -Rs'
+alias sps='sp -S'
+
+alias st='sys polipo && sys tor'
+alias stt='sudo systemctl stop tor'
+
+alias sy='sudo systemctl'
+alias syp='sudo systemctl stop'
+alias sys='sudo systemctl start'
+alias syst='sudo systemctl status'
+
+alias t='tree'
+
+alias tor='syp tor && sys tor'
+
+alias vc='ffmpeg -f alsa -ac 2 -i default -f x11grab -r 15 -s 1280x720 -i :0.0+0,17 -acodec pcm_s16le -vcodec libx264 -preset ultrafast -threads 0 -y video.mkv'
+
+alias w='watch'
+alias wt='watch sudo systemctl status tor'
+
+alias wm='sudo ip link set wlp6s0 && sudo wifi-menu wlp6s0'
+
+alias ya='yaourt'
