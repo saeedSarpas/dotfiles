@@ -1,14 +1,11 @@
-# Source aliases
-source ~/.zaliases
-
 # Path to your oh-my-zsh installation.
-export ZSH=/home/saeed/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="dieter"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -56,7 +53,7 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/clojurescript/bin/:/home/saeed/bin:/home/saeed/.rvm/bin:/opt/android-sdk/tools/:/opt/android-sdk/platform-tools/:/home/saeed/.rvm/gems/ruby-2.2.0/bin/:/home/saeed/bin:/usr/local/bin/"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -86,22 +83,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# my aliases
+source ~/.zaliases
 
-# Display the current RVM ruby selection
-PS1="\$(/home/saeed/.rvm/bin/rvm-prompt) $PS1"
-
-# RVM bash completion
-[[ -r /usr/local/rvm/scripts/completion ]] && . /usr/local/rvm/scripts/completion
-
-export FACEBOOK_CALLBACK_URL="http://0.0.0.0:3000/oauth/callback?provider=facebook"
-export FACEBOOK_KEY="824870124191439"
-export FACEBOOK_SECRET="5a6fa288baa8e23e802ef88f5630b790"
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-export JAVA_HOME="/usr/lib/jvm/java-7-openjdk/"
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-screenfetch
+# local setting
+source ~/.zshrc.local

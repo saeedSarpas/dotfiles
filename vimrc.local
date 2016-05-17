@@ -1,0 +1,81 @@
+"80 characters line wrap
+set colorcolumn=80
+set textwidth=80
+
+"Colorscheme
+colo solarized
+set background=dark
+
+"Key binding
+imap jk <ESC>
+
+"Fonts
+set guifont=Inconsolata-Regular\ 13
+
+"GUI window maps
+nmap <tab> <C-w>
+nmap <SPACE>w/ <C-w>v
+nmap <SPACE>w- <C-w>s
+
+nmap <SPACE><SPACE> <C-w><C-w>
+nmap <SPACE>wh <C-w>h
+nmap <SPACE>wj <C-w>j
+nmap <SPACE>wk <C-w>k
+nmap <SPACE>wl <C-w>l
+
+nmap <SPACE>wH <C-w>H
+nmap <SPACE>wJ <C-w>J
+nmap <SPACE>wK <C-w>K
+nmap <SPACE>wL <C-w>L
+
+nmap <SPACE>w> <C-w>20>
+nmap <SPACE>w< <C-w>20<
+
+nmap <SPACE>tt :tabe<CR>
+nmap 0 ^
+
+"Comments
+nmap <SPACE>;; ,c<SPACE>
+vmap <SPACE>; ,c<SPACE>
+
+"Paste
+set nopaste
+
+"LaTeX and PdfLaTeX
+nmap comp :!pdflatex %<CR>
+
+"NerdTree maps
+nmap <SPACE>ff :NERDTree<SPACE>.<CR>
+nmap no :NERDTreeTabsOpen<CR>
+
+"Save and Exit
+nmap <SPACE>wc :q<CR>
+nmap <SPACE>fs :w<CR>
+
+"Align
+vmap t :'<,'>Tab /=<CR>
+
+"Tab and indentation
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set noexpandtab
+set copyindent
+set preserveindent
+set softtabstop=0
+
+"Vimrc
+nmap <SPACE>feR :so $MYVIMRC<CR>
+
+"ng attribute in HTML
+"let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+
+"Line number
+function! NumberToggle()
+    if(&relativenumber == 1)
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+nnoremap <C-n> :call NumberToggle()<cr>
