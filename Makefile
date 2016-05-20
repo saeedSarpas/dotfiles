@@ -40,7 +40,7 @@ zshrc :
 	else \
 		echo "err: The zshrc dotfile is already exist."; \
 		echo "Use \`$ make FORCE=true\` to overwrite it."; \
-	fi
+	fi; \
 
 .PHONY : vim
 vim :
@@ -68,4 +68,12 @@ i3wm :
 		then \
 			cp -f i3-status ~/.i3status.conf; \
 		fi \
+	fi
+
+.PHONY : spacemacs
+spacemacs :
+	@if [ \( ! -f ~/.spacemacs \) -o \( "${FORCE}" = true \) ]; \
+	then \
+		echo "Copyting spacemacs config file..."; \
+		cp -f spacemacs ~/.spacemacs; \
 	fi
