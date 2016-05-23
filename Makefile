@@ -16,7 +16,11 @@ help :
 	echo ""; \
 	echo "i3wm:"; \
 	echo "\tUse \`$ make i3wm\` to copy i3wm configuration files."; \
-	echo "\tFor overwriting the current i3wm related file, set \`FORCE=true\`.";
+	echo "\tFor overwriting the current i3wm config file, set \`FORCE=true\`.";
+	echo ""; \
+	echo "spacemacs:"; \
+	echo "\tUse \`$ make spacemacs\` to copy spacemacs configuration files."; \
+	echo "\tFor overwriting the current spacemacs config file, set \`FORCE=true\`.";
 
 .PHONY : zshrc
 zshrc :
