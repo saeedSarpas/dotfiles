@@ -25,9 +25,6 @@ alias sp='sudo pacman'
 alias spr='sudo pacman -Rs'
 alias sps='sudo pacman -S'
 
-# Python package manager
-alias pipi='pip install --user'
-
 # Systemctl
 alias sy='sudo systemctl'
 alias syp='sudo systemctl stop'

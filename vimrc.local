@@ -4,7 +4,7 @@ set textwidth=80
 
 "Colorscheme
 colo solarized
-set background=dark
+set background=light
 
 "Key binding
 imap jk <ESC>
