@@ -247,17 +247,17 @@ It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
   (global-linum-mode t)
-  (setq-default indent-tabs-mode t
-                tab-width 2
-                evil-escape-key-sequence "jk"
-                c-basic-offset 2
-                js2-basic-offset 2
-                js-indent-level 2
-                web-mode-markup-indent-offset 2
-                web-mode-css-indent-offset 2
-                web-mode-code-indent-offset 2
-                web-mode-attr-indent-offset 2
-                ranger-show-dotfiles t)
+  (setq-default evil-escape-key-sequence "jk")
+  (setq-default indent-tabs-mode nil
+                tab-width 2)
+  (setq js2-basic-offset 2
+        js-indent-level 2)
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-attr-indent-offset 2)
+  (setq c-default-style "linux"
+        c-basic-offset 2)
   )
 
 (defun dotspacemacs/user-config ()
