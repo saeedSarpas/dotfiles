@@ -8,7 +8,7 @@ alias aifa-gates='ssh -p1234 -X saeed@gates.astro.uni-bonn.de'
 aifa-science () {ssh -X saeed@science0$1}
 
 # AIfA gates scp
-aifa-scp () {scp -P 1234 saeed@gates.astro.uni-bonn.de:$1 .}
+aifa-scp () {scp -P 1234 -r saeed@gates.astro.uni-bonn.de:$1 .}
 
 # Clear
 alias c='clear'
