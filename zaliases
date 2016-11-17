@@ -34,3 +34,6 @@ alias t='tree'
 # Video screen recorder
 alias vc='ffmpeg -f alsa -ac 2 -i default -f x11grab -r 15 -s 1280x720 -i :0.0+0,17 -acodec pcm_s16le -vcodec libx264 -preset ultrafast -threads 0 -y video.mkv'
 alias vcmac='ffmpeg -f avfoundation -i $1 -s 1280x720 -r 30 -acodec pcm_s16le -vcodec H.264 -preset ultrafast -threads 0 -y video.mkv'
+
+# feh
+alias feh='feh -F. -d'
