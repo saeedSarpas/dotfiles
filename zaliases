@@ -41,3 +41,7 @@ alias vcmac='ffmpeg -f avfoundation -i $1 -s 1280x720 -r 30 -acodec pcm_s16le -v
 
 # feh
 alias feh='feh -F. -d'
+
+# screen
+alias sls='screen -ls'
+alias srd='screen -rd'
