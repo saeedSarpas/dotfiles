@@ -88,3 +88,6 @@ source ~/.zaliases
 
 # local setting
 source ~/.zshrc.local
+
+# env variables
+source ~/.zshenv

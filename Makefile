@@ -45,6 +45,7 @@ zshrc :
 		echo "err: The zshrc dotfile is already exist."; \
 		echo "Use \`$ make FORCE=true\` to overwrite it."; \
 	fi; \
+	touch ~/.zshenv
 
 .PHONY : vim
 vim :
