@@ -5,22 +5,22 @@ I3    = false
 .PHONY : help
 help :
 	@echo "zshrc:"; \
-	echo "\tUse \`$ make zshrc\` to copy configuration files."; \
-	echo "\tFor overwriting the current zshrc related file, set \`FORCE=true\`."; \
-	echo "\tFor also copying the archlinux aliases, set \`ARCH=true\`."; \
-	echo "\tFor also copying the i3wm aliases, set \`I3=true\`."; \
-	echo "\n"; \
+	echo "Use \`$ make zshrc\` to copy configuration files."; \
+	echo "For overwriting the current zshrc related file, set \`FORCE=true\`."; \
+	echo "For also copying the archlinux aliases, set \`ARCH=true\`."; \
+	echo "For also copying the i3wm aliases, set \`I3=true\`."; \
+	echo ""; \
 	echo "vim:"; \
-	echo "\tUse \`$ make vim\` to copy vim configuration files."; \
-	echo "\tFor overwriting the current vimrc.local file, set \`FORCE=true\`."; \
+	echo "Use \`$ make vim\` to copy vim configuration files."; \
+	echo "For overwriting the current vimrc.local file, set \`FORCE=true\`."; \
 	echo ""; \
 	echo "i3wm:"; \
-	echo "\tUse \`$ make i3wm\` to copy i3wm configuration files."; \
-	echo "\tFor overwriting the current i3wm config file, set \`FORCE=true\`.";
+	echo "Use \`$ make i3wm\` to copy i3wm configuration files."; \
+	echo "For overwriting the current i3wm config file, set \`FORCE=true\`.";
 	echo ""; \
 	echo "spacemacs:"; \
-	echo "\tUse \`$ make spacemacs\` to copy spacemacs configuration files."; \
-	echo "\tFor overwriting the current spacemacs config file, set \`FORCE=true\`.";
+	echo "Use \`$ make spacemacs\` to copy spacemacs configuration files."; \
+	echo "For overwriting the current spacemacs config file, set \`FORCE=true\`.";
 
 .PHONY : zshrc
 zshrc :
@@ -32,13 +32,17 @@ zshrc :
 		if [ "${ARCH}" = true ]; \
 		then \
 			echo "Copyting archlinux aliases..."; \
-			echo "\n# archlinux aliases\nsource ~/.zaliases.arch" >> ~/.zshrc; \
+			echo "# archlinux aliases" >> ~/.zshrc; \
+			echo "source ~/.zaliases.arch" >> ~/.zshrc; \
+			echo "" >> ~/.zshrc; \
 			cp -f zaliases.arch ~/.zaliases.arch; \
 		fi; \
 		if [ "${I3}" = true ]; \
 		then \
 			echo "Copyting i3wm aliases..."; \
-			echo "\n# i3wm aliases\nsource ~/.zaliases.i3" >> ~/.zshrc; \
+			echo "# i3wm aliases" >> ~/.zshrc; \
+			echo "source ~/.zaliases.i3" >> ~/.zshrc; \
+			echo "" >> ~/.zshrc; \
 			cp -f zaliases.i3 ~/.zaliases.i3; \
 		fi \
 	else \
