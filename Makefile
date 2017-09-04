@@ -1,88 +1,74 @@
-FORCE = false
-ARCH  = false
-I3    = false
+SHELL := /bin/bash
 
 .PHONY : help
 help :
-	@echo "zshrc:"; \
-	echo "Use \`$ make zshrc\` to copy configuration files."; \
-	echo "For overwriting the current zshrc related file, set \`FORCE=true\`."; \
-	echo "For also copying the archlinux aliases, set \`ARCH=true\`."; \
-	echo "For also copying the i3wm aliases, set \`I3=true\`."; \
-	echo ""; \
-	echo "vim:"; \
-	echo "Use \`$ make vim\` to copy vim configuration files."; \
-	echo "For overwriting the current vimrc.local file, set \`FORCE=true\`."; \
-	echo ""; \
-	echo "i3wm:"; \
-	echo "Use \`$ make i3wm\` to copy i3wm configuration files."; \
-	echo "For overwriting the current i3wm config file, set \`FORCE=true\`.";
-	echo ""; \
-	echo "spacemacs:"; \
-	echo "Use \`$ make spacemacs\` to copy spacemacs configuration files."; \
-	echo "For overwriting the current spacemacs config file, set \`FORCE=true\`.";
+	@echo "zshrc:";
+	@echo "Use \`$ make zshrc\` to copy configuration files.";
+	@echo "";
+	@echo "vim:";
+	@echo "Use \`$ make vim\` to copy vim configuration files.";
+	@echo "";
+	@echo "i3wm:";
+	@echo "Use \`$ make i3wm\` to copy i3wm configuration files.";
+	@echo "";
+	@echo "spacemacs:";
+	@echo "Use \`$ make spacemacs\` to copy spacemacs configuration files.";
+	@echo "";
+	@echo "all:";
+	@echo "Use \`$ make all\` to run all the above targets.";
+
+.PHONY : all
+all : zshrc vim i3wm spacemacs
 
 .PHONY : zshrc
 zshrc :
-	@if [ \( ! -f ~/.zshrc -a ! -f ~/.zaliases \) -o \( "${FORCE}" = true \) ]; \
-	then \
-		echo "Copyting zshrc and zaliases..."; \
-		cp -f ./zshrc ~/.zshrc; \
-		cp -f ./zaliases ~/.zaliases; \
-		if [ "${ARCH}" = true ]; \
-		then \
-			echo "Copyting archlinux aliases..."; \
-			echo "# archlinux aliases" >> ~/.zshrc; \
-			echo "source ~/.zaliases.arch" >> ~/.zshrc; \
-			echo "" >> ~/.zshrc; \
-			cp -f zaliases.arch ~/.zaliases.arch; \
-		fi; \
-		if [ "${I3}" = true ]; \
-		then \
-			echo "Copyting i3wm aliases..."; \
-			echo "# i3wm aliases" >> ~/.zshrc; \
-			echo "source ~/.zaliases.i3" >> ~/.zshrc; \
-			echo "" >> ~/.zshrc; \
-			cp -f zaliases.i3 ~/.zaliases.i3; \
-		fi \
-	else \
-		echo "err: The zshrc dotfile is already exist."; \
-		echo "Use \`$ make FORCE=true\` to overwrite it."; \
-	fi; \
-	touch ~/.zshenv
+	$(call copy, ./zshrc, ~/.zshrc)
+	$(call copy, ./zaliases, ~/.zaliases)
+	$(call copy, zaliases.arch, ~/.zaliases.arch)
+	$(call copy, zaliases.i3, ~/.zaliases.i3)
+	@touch ~/.zshenv
+	@source ~/.zshrc
 
 .PHONY : vim
 vim :
-	@if [ \( ! -f ~/.vimrc.local \) -o \( "${FORCE}" = true \) ]; \
-	then \
-		echo "Copyting vimrc.local file..."; \
-		cp -f vimrc.local ~/.vimrc.local; \
-	fi
+	$(call copy, vimrc.local, ~/.vimrc.local)
 
 .PHONY : i3wm
 i3wm :
-	@if [ \( ! -f ~/.i3/config -a ! -f ~/.config/i3/config \) -o \( "${FORCE}" = true \) ]; \
-	then \
-		if [ -d ~/.i3 ]; \
-		then \
-			echo "Copyting i3wm config file to \`~/.i3/config\`..."; \
-			cp -f i3-config ~/.i3/config; \
-		else \
-			echo "Copyting i3wm config file to \`~/.config/i3/config\`..."; \
-			mkdir -p ~/.config/i3; \
-			cp -f i3-config ~/.config/i3/config; \
-		fi; \
-		echo "Copyting i3wm status file..."; \
-		if [ \( ! -f ~/.i3status.config \) -o \( "${FORCE}" = true \) ]; \
-		then \
-			cp -f i3-status ~/.i3status.conf; \
-		fi \
-	fi
+	$(call init_i3wm)
+	$(call copy, ./i3-config, ~/.config/i3/config)
+	$(call copy, ./YosemiteSanFranciscoFont/*.ttf, ~/.fonts)
+	$(call copy, ./Font-Awesome/*.ttf, ~/.fonts)
+	$(call copy, ./desktop-bg.jpg, ~/.config/i3/)
+	$(call copy, ./gtkrc-2.0, ~/.gtkrc-2.0)
+	$(call copy, ./settings.ini, ~/.config/gtk-3.0/)
+	$(call copy, ./Xresources, ~/.Xresources)
+	@xrdb ~/.Xresources;
+	$(call copy, ./i3lock.sh, ~/.i3lock.sh)
+	$(call check_prog, arandr feh pactl playerctl terminator lxappearance rofi \
+		compton scrot i3blocks)
+	@echo "Please make sure that imagemagick is installed."
+	@i3-msg reload
+
 
 .PHONY : spacemacs
 spacemacs :
-	@if [ \( ! -f ~/.spacemacs \) -o \( "${FORCE}" = true \) ]; \
-	then \
-		echo "Copyting spacemacs config file..."; \
-		cp -f spacemacs ~/.spacemacs; \
-	fi
+	$(call copy, spacemacs, ~/.spacemacs)
+
+define copy
+	$(foreach f, ${1}, $(shell cp ${f} ${2}))
+	@printf "Copied %s to %s\n" "${1}" ${2}
+endef
+
+define check_prog
+	$(foreach p, ${1}, $(shell command -v ${p} >/dev/null 2>&1 \
+		|| echo >&2 "Please consider installing ${p}.";))
+endef
+
+define init_i3wm
+	@rm -rf ~/.i3;
+	@mkdir -p ~/.fonts;
+	@mkdir -p ~/.config;
+	@mkdir -p ~/.config/i3;
+	@mkdir -p ~/.config/gtk-3.0;
+endef

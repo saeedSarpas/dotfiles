@@ -11,7 +11,7 @@
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:inconsolata 8
+font pango:System San Francisco Display 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -42,13 +42,6 @@ bindsym Mod1+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym Mod1+Shift+q kill
-
-# start dmenu (a program launcher)
-bindsym Mod1+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym Mod1+$left focus left
@@ -107,29 +100,46 @@ bindsym Mod1+Shift+minus move scratchpad
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym Mod1+minus scratchpad show
 
+set $workspace1 "1: Chrome "
+set $workspace2 "2: Terminal "
+set $workspace3 "3: Editor "
+set $workspace4 "4:"
+set $workspace5 "5:"
+set $workspace6 "6:"
+set $workspace7 "7:"
+set $workspace8 "8:"
+set $workspace9 "9:"
+set $workspace10 "10:"
+
 # switch to workspace
-bindsym Mod1+1 workspace 1
-bindsym Mod1+2 workspace 2
-bindsym Mod1+3 workspace 3
-bindsym Mod1+4 workspace 4
-bindsym Mod1+5 workspace 5
-bindsym Mod1+6 workspace 6
-bindsym Mod1+7 workspace 7
-bindsym Mod1+8 workspace 8
-bindsym Mod1+9 workspace 9
-bindsym Mod1+0 workspace 10
+bindsym Mod1+1 workspace $workspace1
+bindsym Mod1+2 workspace $workspace2
+bindsym Mod1+3 workspace $workspace3
+bindsym Mod1+4 workspace $workspace4
+bindsym Mod1+5 workspace $workspace5
+bindsym Mod1+6 workspace $workspace6
+bindsym Mod1+7 workspace $workspace7
+bindsym Mod1+8 workspace $workspace8
+bindsym Mod1+9 workspace $workspace9
+bindsym Mod1+0 workspace $workspace10
 
 # move focused container to workspace
-bindsym Mod1+Shift+1 move container to workspace 1
-bindsym Mod1+Shift+2 move container to workspace 2
-bindsym Mod1+Shift+3 move container to workspace 3
-bindsym Mod1+Shift+4 move container to workspace 4
-bindsym Mod1+Shift+5 move container to workspace 5
-bindsym Mod1+Shift+6 move container to workspace 6
-bindsym Mod1+Shift+7 move container to workspace 7
-bindsym Mod1+Shift+8 move container to workspace 8
-bindsym Mod1+Shift+9 move container to workspace 9
-bindsym Mod1+Shift+0 move container to workspace 10
+bindsym Mod1+Shift+1 move container to workspace $workspace1
+bindsym Mod1+Shift+2 move container to workspace $workspace2
+bindsym Mod1+Shift+3 move container to workspace $workspace3
+bindsym Mod1+Shift+4 move container to workspace $workspace4
+bindsym Mod1+Shift+5 move container to workspace $workspace5
+bindsym Mod1+Shift+6 move container to workspace $workspace6
+bindsym Mod1+Shift+7 move container to workspace $workspace7
+bindsym Mod1+Shift+8 move container to workspace $workspace8
+bindsym Mod1+Shift+9 move container to workspace $workspace9
+bindsym Mod1+Shift+0 move container to workspace $workspace10
+
+
+assign [class="Chromium"] $workspace1
+assign [class="Terminator"] $workspace2
+assign [class="Emacs"] $workspace3
+
 
 # reload the configuration file
 bindsym Mod1+Shift+c reload
@@ -164,10 +174,51 @@ mode "resize" {
 
 bindsym Mod1+r mode "resize"
 
+# Colors
+
+set $bg-color            #2f343f
+set $bg-alternative      #2f343f
+set $text-color          #f3f4f5
+set $bg-inactive         #2f343f
+set $text-color-inactive #676e7d
+set $bg-urgent           #e53935
+set $bg-highlight        #2f343f
+set $text-highlight      #9575cd
+set $separator-color     #757575
+
+
+# State                 border       background   text                 indicator
+client.focused          $bg-color    $bg-color    $text-color          #00ff00
+client.unfocused        $bg-inactive $bg-inactive $text-color-inactive #00ff00
+client.focused_inactive $bg-inactive $bg-inactive $text-color-inactive #00ff00
+client.urgent           $bg-urgent   $bg-urgent   $text-color          #00ff00
+
+# start dmenu (a program launcher)
+
+bindsym Mod1+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 \
+        -fake-transparency "85" -bw 0 -font "System San Francisco Display 12"
+
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
+
+
+hide_edge_borders both
+
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+    status_command i3blocks
+    colors {
+           background $bg-color
+           separator $separator-color
+           # State            border       background   text
+           focused_workspace  $bg-color    $bg-color    $text-color
+           inactive_workspace $bg-inactive $bg-inactive $text-color-inactive
+           urgent_workspace   $bg-urgent   $bg-urgent   $text-color
+    }
 }
 
 #######################################################################
@@ -195,8 +246,21 @@ bindsym Print exec scrot -e 'mv $f ~/Pictures/Screenshots'
 # Color invert
 bindsym MOD4+i exec xcalib -invert -alter
 
+# Screen lock
+bindsym $mod+Shift+b exec ~/.i3lock.sh
+# bindsym $mod+Shift+b exec bash -c "scrot /tmp/screen.png && convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png [[ -f $1 ]] && convert /tmp/screen.png $1 -gravity center -composite -matte /tmp/screen.png && dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop && i3lock -u -i /tmp/screen.png && rm /tmp/screen.png"
+
+# Touchpad controls
+bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
 # Background
-# feh --bg-scale /home/saeed/Pictures/Battle-of-Solebay-june.jpg
+exec_always feh --bg-fill ~/.config/i3/desktop-bg.jpg
 
 #######################################################################
 
@@ -210,3 +274,15 @@ bindsym MOD4+i exec xcalib -invert -alter
 # Please remove the following exec line:
 #######################################################################
 # exec i3-config-wizard
+
+# Compton
+# exec compton -f
+
+# Chromium
+exec chromium
+
+# Terminator
+exec terminator
+
+# Spacemacs
+exec emacs

@@ -4,13 +4,13 @@ set textwidth=80
 
 "Colorscheme
 colo solarized
-set background=light
+set background=dark
 
 "Key binding
 imap jk <ESC>
 
 "Fonts
-set guifont=Inconsolata-Regular\ 13
+set guifont=Inconsolata\ 11
 
 "GUI window maps
 nmap <tab> <C-w>

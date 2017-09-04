@@ -1,0 +1,20 @@
+! Colors
+#define bg_color argb:dd2f343f
+#define bg_alternative argb:dd2f343f
+#define text_color argb:fff3f4f5
+#define bg_inactive argb:dd2f343f
+#define text_color_inactive argb:ff676e7d
+#define bg_urgent argb:ffe53935
+#define bg_highlight argb:ff2f343f
+#define text_highlight argb:ff9575cd
+#define separator_color argb:dd757575
+#define transparent argb:00000000
+
+! Rofi color scheme
+rofi.color-enabled: true
+rofi.color-normal: transparent, text_color, transparent, transparent, text_highlight
+rofi.color-urgent: bg_urgent, text_color, transparent, transparent, text_highlight
+rofi.color-active: transparent, text_color, transparent, transparent, text_highlight
+rofi.color-window: bg_color, bg_color, bg_color
+rofi.line-margin: 10
+rofi.separator-style: none

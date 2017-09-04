@@ -91,3 +91,9 @@ source ~/.zshrc.local
 
 # env variables
 source ~/.zshenv
+
+# archlinux aliases
+source ~/.zaliases.arch
+
+# i3wm aliases
+source ~/.zaliases.i3
