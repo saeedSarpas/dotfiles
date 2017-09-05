@@ -1,4 +1,5 @@
 ! Colors
+
 #define bg_color argb:dd2f343f
 #define bg_alternative argb:dd2f343f
 #define text_color argb:fff3f4f5
@@ -9,8 +10,32 @@
 #define text_highlight argb:ff9575cd
 #define separator_color argb:dd757575
 #define transparent argb:00000000
+#define fade_color #002b36
+#define cursor_color #657b83
+#define cursor_color_2 #93a1a1
+#define pointer_color_bg #586e75
+#define pointer_color_fg #93a1a1
+#define solarized_bg #002b36
+#define solarized_fg #657b83
+#define solarized_black_dark #073642
+#define solarized_black_light #002b36
+#define solarized_red_dark #dc322f
+#define solarized_red_light #cb4b16
+#define solarized_green_dark #859900
+#define solarized_green_light #586e75
+#define solarized_yellor_dark #b58900
+#define solarized_yellor_light #657b83
+#define solarized_blue_dark #268bd2
+#define solarized_blue_light #839496
+#define solarized_magenta_dark #d33682
+#define solarized_magenta_light #6c71c4
+#define solarized_cyan_dark #2aa198
+#define solarized_cyan_light #93a1a1
+#define solarized_white_dark #eee8d5
+#define solarized_white_light #fdf6e3
 
 ! Rofi color scheme
+
 rofi.color-enabled: true
 rofi.color-normal: transparent, text_color, transparent, transparent, text_highlight
 rofi.color-urgent: bg_urgent, text_color, transparent, transparent, text_highlight
@@ -18,3 +43,93 @@ rofi.color-active: transparent, text_color, transparent, transparent, text_highl
 rofi.color-window: bg_color, bg_color, bg_color
 rofi.line-margin: 10
 rofi.separator-style: none
+
+! Xft settings
+
+Xft.dpi: 96
+Xft.antialias: false
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintslight
+
+! URxvt settings
+! Colours lifted from Solarized (http://ethanschoonover.com/solarized)
+
+URxvt.depth: 32
+URxvt.geometry: 90x30
+URxvt.transparent: false
+URxvt.fading: 0
+URxvt.visualBell: true
+URxvt.loginShell: true
+URxvt.saveLines: 50
+URxvt.internalBorder: 3
+URxvt.lineSpace: 0
+
+! Fonts
+URxvt.allow_bold: false
+/* URxvt.font: -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1 */
+URxvt*font: xft:Monospace:pixelsize=14
+URxvt*boldFont: xft:Monospace:pixelsize=14
+
+! Fix font space
+URxvt*letterSpace: -1
+
+! Scrollbar
+URxvt.scrollStyle: rxvt
+URxvt.scrollBar: false
+
+! Perl extensions
+URxvt.perl-ext-common: default,matcher
+URxvt.matcher.button: 1
+URxvt.urlLauncher: chromium
+
+! Cursor
+URxvt.cursorBlink: true
+URxvt.cursorColor: cursor_color
+URxvt.cursorUnderline: false
+
+! Pointer
+URxvt.pointerBlank: true
+
+*background: solarized_bg
+*foreground: solarized_fg
+!!*fading: 40
+*fadeColor: fade_color
+*cursorColor: cursor_color_2
+*pointerColorBackground: pointer_color_bg
+*pointerColorForeground: pointer_color_fg
+
+!! black dark/light
+*color0: solarized_black_dark
+*color8: solarized_black_light
+
+!! red dark/light
+*color1: solarized_red_dark
+*color9: solarized_red_light
+
+!! green dark/light
+*color2: solarized_green_dark
+*color10: solarized_green_light
+
+!! yellow dark/light
+*color3: solarized_yellor_dark
+*color11: solarized_yellor_light
+
+!! blue dark/light
+*color4: solarized_blue_dark
+*color12: solarized_blue_light
+
+!! magenta dark/light
+*color5: solarized_magenta_dark
+*color13: solarized_magenta_light
+
+!! cyan dark/light
+*color6: solarized_cyan_dark
+*color14: solarized_cyan_light
+
+!! white dark/light
+*color7: solarized_white_dark
+*color15: solarized_white_dark
+
+!! Background
+URxvt*backgroundPixmap: /home/saeed/.config/i3/terminal-solarized-bg.png;style=tiled

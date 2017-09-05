@@ -40,6 +40,8 @@ i3wm :
 	$(call copy, ./YosemiteSanFranciscoFont/*.ttf, ~/.fonts)
 	$(call copy, ./Font-Awesome/*.ttf, ~/.fonts)
 	$(call copy, ./desktop-bg.jpg, ~/.config/i3/)
+	$(call copy, ./terminal-bg.png, ~/.config/i3/)
+	$(call copy, ./terminal-solarized-bg.png, ~/.config/i3/)
 	$(call copy, ./gtkrc-2.0, ~/.gtkrc-2.0)
 	$(call copy, ./settings.ini, ~/.config/gtk-3.0/)
 	$(call copy, ./Xresources, ~/.Xresources)

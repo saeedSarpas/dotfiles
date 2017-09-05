@@ -15,7 +15,7 @@ alias aifa-hobbes='ssh -Y saeed@hobbes'
 alias hobbes='cd /vol/hobbes/hobbesraid/saeed'
 
 # ETHZ
-alias theia='ssh -Y sarpass@theia'
+alias theia='ssh -Y sarpass@theia.ethz.ch'
 alias phys='ssh -Y sarpass@login.phys.ethz.ch'
 
 # Clear
