@@ -45,10 +45,11 @@ i3wm :
 	$(call copy, ./gtkrc-2.0, ~/.gtkrc-2.0)
 	$(call copy, ./settings.ini, ~/.config/gtk-3.0/)
 	$(call copy, ./Xresources, ~/.Xresources)
+	$(call copy, ./termite-config, ~/.config/termite/config)
 	@xrdb ~/.Xresources;
 	$(call copy, ./i3lock.sh, ~/.i3lock.sh)
-	$(call check_prog, arandr feh pactl playerctl terminator lxappearance rofi \
-		compton scrot i3blocks)
+	$(call check_prog, arandr feh pactl playerctl termite urxvt terminator \
+		lxappearance rofi compton scrot i3blocks)
 	@echo "Please make sure that imagemagick is installed."
 	@i3-msg reload
 
@@ -73,4 +74,5 @@ define init_i3wm
 	@mkdir -p ~/.config;
 	@mkdir -p ~/.config/i3;
 	@mkdir -p ~/.config/gtk-3.0;
+	@mkdir -p ~/.config/termite;
 endef

@@ -46,11 +46,12 @@ rofi.separator-style: none
 
 ! Xft settings
 
-Xft.dpi: 96
-Xft.antialias: false
 Xft.rgba: rgb
 Xft.hinting: true
+Xft.autohint: false
 Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+Xft.antialias: true
 
 ! URxvt settings
 ! Colours lifted from Solarized (http://ethanschoonover.com/solarized)
