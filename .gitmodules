@@ -1,0 +1,9 @@
+[submodule "Font-Awesome"]
+	path = Font-Awesome
+	url = git@github.com:FortAwesome/Font-Awesome.git
+[submodule "YosemiteSanFranciscoFont"]
+	path = YosemiteSanFranciscoFont
+	url = https://github.com/supermarin/YosemiteSanFranciscoFont
+[submodule "osx-terminal-themes"]
+	path = osx-terminal-themes
+	url = git@github.com:lysyi3m/osx-terminal-themes.git
