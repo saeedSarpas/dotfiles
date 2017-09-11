@@ -22,32 +22,34 @@ all : zshrc vim i3wm spacemacs
 
 .PHONY : zshrc
 zshrc :
-	$(call copy, ./zshrc, ~/.zshrc)
-	$(call copy, ./zaliases, ~/.zaliases)
-	$(call copy, zaliases.arch, ~/.zaliases.arch)
-	$(call copy, zaliases.i3, ~/.zaliases.i3)
+	@[ ! -d ~/.oh-my-zsh ] && sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" || true
+	$(call copy, ./zsh/zshrc, ~/.zshrc)
+	$(call copy, ./zsh/zaliases, ~/.zaliases)
+	$(call copy, ./zsh/zaliases.arch, ~/.zaliases.arch)
+	$(call copy, ./zsh/zaliases.i3, ~/.zaliases.i3)
 	@touch ~/.zshenv
 	@source ~/.zshrc
 
 .PHONY : vim
 vim :
-	$(call copy, vimrc.local, ~/.vimrc.local)
+	@[ ! -d ~/.spf13-vim-3 ] && sh <(curl https://j.mp/spf13-vim3 -L) || true
+	$(call copy, ./vim/vimrc.local, ~/.vimrc.local)
 
 .PHONY : i3wm
 i3wm :
 	$(call init_i3wm)
-	$(call copy, ./i3-config, ~/.config/i3/config)
-	$(call copy, ./YosemiteSanFranciscoFont/Text\ Face\ \(alternate\)/*.ttf, ~/.fonts)
+	$(call copy, ./i3/i3-config, ~/.config/i3/config)
+	$(call copy, ./YosemiteSanFranciscoFontTTF/*.ttf, ~/.fonts)
 	$(call copy, ./Font-Awesome/fonts/*.ttf, ~/.fonts)
 	$(call copy, ./imgs/desktop-bg.jpg, ~/.config/i3/)
 	$(call copy, ./imgs/terminal-bg.png, ~/.config/i3/)
 	$(call copy, ./imgs/terminal-solarized-bg.png, ~/.config/i3/)
-	$(call copy, ./gtkrc-2.0, ~/.gtkrc-2.0)
-	$(call copy, ./settings.ini, ~/.config/gtk-3.0/)
-	$(call copy, ./Xresources, ~/.Xresources)
-	$(call copy, ./termite-config, ~/.config/termite/config)
+	$(call copy, ./i3/gtkrc-2.0, ~/.gtkrc-2.0)
+	$(call copy, ./i3/settings.ini, ~/.config/gtk-3.0/)
+	$(call copy, ./i3/Xresources, ~/.Xresources)
+	$(call copy, ./i3/termite-config, ~/.config/termite/config)
 	@xrdb ~/.Xresources;
-	$(call copy, ./i3lock.sh, ~/.i3lock.sh)
+	$(call copy, ./i3/i3lock.sh, ~/.i3lock.sh)
 	$(call check_prog, arandr feh pactl playerctl termite urxvt terminator \
 		lxappearance rofi compton scrot i3blocks)
 	@echo "Please make sure that imagemagick is installed."
@@ -56,7 +58,7 @@ i3wm :
 
 .PHONY : spacemacs
 spacemacs :
-	$(call copy, spacemacs, ~/.spacemacs)
+	$(call copy, ./spacemacs/spacemacs-config, ~/.spacemacs)
 
 define copy
 	$(foreach f, ${1}, $(shell cp ${f} ${2}))
