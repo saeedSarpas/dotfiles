@@ -48,7 +48,8 @@ i3wm :
 	$(call copy, ./i3/settings.ini, ~/.config/gtk-3.0/)
 	$(call copy, ./i3/Xresources, ~/.Xresources)
 	$(call copy, ./i3/termite-config, ~/.config/termite/config)
-	@xrdb ~/.Xresources;
+	$(call copy, ./base16-xresources/xresources/*, ~/.Xresources.d/themes)
+	@xrdb -load ~/.Xresources;
 	$(call copy, ./i3/i3lock.sh, ~/.i3lock.sh)
 	$(call check_prog, arandr feh pactl playerctl termite urxvt terminator \
 		lxappearance rofi compton scrot i3blocks)
@@ -77,4 +78,6 @@ define init_i3wm
 	@mkdir -p ~/.config/i3;
 	@mkdir -p ~/.config/gtk-3.0;
 	@mkdir -p ~/.config/termite;
+	@mkdir -p ~/.Xresources.d;
+	@mkdir -p ~/.Xresources.d/themes;
 endef

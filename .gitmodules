@@ -7,3 +7,6 @@
 [submodule "osx-terminal-themes"]
 	path = osx-terminal-themes
 	url = git@github.com:lysyi3m/osx-terminal-themes.git
+[submodule "base16-xresources"]
+	path = base16-xresources
+	url = git@github.com:chriskempson/base16-xresources.git
