@@ -2,32 +2,24 @@ SHELL := /bin/bash
 
 .PHONY : help
 help :
-	@echo "zshrc:";
-	@echo "Use \`$ make zshrc\` to copy configuration files.";
-	@echo "";
-	@echo "vim:";
-	@echo "Use \`$ make vim\` to copy vim configuration files.";
-	@echo "";
-	@echo "i3wm:";
-	@echo "Use \`$ make i3wm\` to copy i3wm configuration files.";
-	@echo "";
-	@echo "spacemacs:";
-	@echo "Use \`$ make spacemacs\` to copy spacemacs configuration files.";
-	@echo "";
-	@echo "all:";
-	@echo "Use \`$ make all\` to run all the above targets.";
+	@echo "Targets:";
+	@echo " - zsh";
+	@echo " - vim";
+	@echo " - i3wm";
+	@echo " - spacemacs";
 
 .PHONY : all
-all : zshrc vim i3wm spacemacs
+all : zsh vim i3wm spacemacs
 
-.PHONY : zshrc
-zshrc :
+.PHONY : zsh
+zsh :
 	@[ ! -d ~/.oh-my-zsh ] && sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" || true
 	$(call copy, ./zsh/zshrc, ~/.zshrc)
 	$(call copy, ./zsh/zaliases, ~/.zaliases)
 	$(call copy, ./zsh/zaliases.arch, ~/.zaliases.arch)
 	$(call copy, ./zsh/zaliases.i3, ~/.zaliases.i3)
-	@touch ~/.zshenv
+	$(call copy, ./zsh/zshenv, ~/.zshenv)
+	@touch ~/.zshenv.local
 	@source ~/.zshrc
 
 .PHONY : vim
