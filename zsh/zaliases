@@ -1,12 +1,12 @@
 # AIfA cipserv ssh
-alias aifa-cipserv='ssh -Y s6sasarp@cipserv1.astro.uni-bonn.de'
+alias aifa-cipserv='ssh -XY s6sasarp@cipserv1.astro.uni-bonn.de'
 
 # AIfA gates ssh
-alias aifa-gates='ssh -p1234 -Y saeed@gates.astro.uni-bonn.de'
+alias aifa-gates='ssh -p1234 -XY saeed@gates.astro.uni-bonn.de'
 
 # AIfA science machine ssh
 aifa-science() {
-  ssh -Y saeed@science0$1
+  ssh -XY saeed@science0$1
 }
 
 # AIfA gates scp
@@ -15,12 +15,13 @@ aifa-scp() {
 }
 
 # Hobbes
-alias aifa-hobbes='ssh -Y saeed@hobbes'
+alias aifa-hobbes='ssh -XY saeed@hobbes'
 alias hobbes='cd /vol/hobbes/hobbesraid/saeed'
 
 # ETHZ
-alias theia='ssh -Y sarpass@theia.ethz.ch'
-alias phys='ssh -Y sarpass@login.phys.ethz.ch'
+alias theia='ssh -XY sarpass@theia.ethz.ch'
+alias phys='ssh -XY sarpass@login.phys.ethz.ch'
+alias eos='ssh -XY sarpass@eos.ethz.ch'
 
 # Clear
 alias c='clear'

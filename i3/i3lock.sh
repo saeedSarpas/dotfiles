@@ -4,7 +4,7 @@ file=/tmp/screen.png
 file_miff=/tmp/frosted_0.miff
 file_mpc=/tmp/frosted_1.mpc
 
-scrot ${file};
+scrot -q 30 ${file};
 
 convert -quiet "$file" -blur 0x10 +repage "$file_mpc"
 
