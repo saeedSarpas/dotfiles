@@ -1,20 +1,11 @@
-# AIfA cipserv ssh
-alias aifa-cipserv='ssh -XY s6sasarp@cipserv1.astro.uni-bonn.de'
-
-# AIfA gates ssh
+# AIfA
 alias aifa-gates='ssh -p1234 -XY saeed@gates.astro.uni-bonn.de'
-
-# AIfA science machine ssh
 aifa-science() {
   ssh -XY saeed@science0$1
 }
-
-# AIfA gates scp
 aifa-scp() {
   scp -P 1234 -r saeed@gates.astro.uni-bonn.de:$1 .
 }
-
-# Hobbes
 alias aifa-hobbes='ssh -XY saeed@hobbes'
 alias hobbes='cd /vol/hobbes/hobbesraid/saeed'
 
@@ -25,11 +16,6 @@ alias eos='ssh -XY sarpass@eos.ethz.ch'
 
 # Clear
 alias c='clear'
-
-# Modified gcc
-mgcc() {
-  gcc $1 -o $1.out -wall -lfftw3 -lm
-}
 
 # Python
 alias py='python'
@@ -56,3 +42,39 @@ alias feh='feh -F. -d'
 # screen
 alias sls='screen -ls'
 alias srd='screen -rd'
+
+# alpm data extraction
+alias expac="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -20"
+alias expacz="expac -s '%-30n %m' | sort -hk 2 | awk '{printf \"%s %.0f MiB\n\", $1, $2/1024/1024}' | column t"
+
+# Journal controller
+alias j='journalctl -xe'
+
+# dmesg
+alias d='dmesg | grep -i'
+
+# Pacman
+alias pss='pacman -Ss'
+alias sp='sudo pacman'
+alias spr='sudo pacman -Rs'
+alias sps='sudo pacman -S'
+
+# Systemctl
+alias sy='sudo systemctl'
+alias syp='sudo systemctl stop'
+alias sys='sudo systemctl start'
+alias syst='sudo systemctl status'
+
+# Yaourt
+alias ya='yaourt'
+alias yas='yaourt -S'
+alias update='yaourt -Syu'
+
+# Sound playback using pulseaudio
+alias lb='pactl load-module module-loopback latency_msec=1'
+alias lbp='pactl unload-module module-loopback'
+
+# XPS
+alias gpust='cat /proc/acpi/bbswitch'
+alias gpuon='sudo tee /proc/acpi/bbswitch <<<ON && dmesg |tail -1 && gpust'
+alias gpuoff='sudo tee /proc/acpi/bbswitch <<<OFF && dmesg |tail -1 && gpust'

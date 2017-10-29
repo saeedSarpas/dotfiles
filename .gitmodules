@@ -10,3 +10,6 @@
 [submodule "base16-xresources"]
 	path = base16-xresources
 	url = git@github.com:chriskempson/base16-xresources.git
+[submodule "grub-eslimi-theme"]
+	path = grub-eslimi-theme
+	url = git@github.com:saeedSarpas/grub-eslimi-theme.git
