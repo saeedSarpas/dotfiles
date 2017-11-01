@@ -13,3 +13,6 @@
 [submodule "grub-eslimi-theme"]
 	path = grub-eslimi-theme
 	url = git@github.com:saeedSarpas/grub-eslimi-theme.git
+[submodule "base16-termite"]
+	path = base16-termite
+	url = git@github.com:khamer/base16-termite.git

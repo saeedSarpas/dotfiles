@@ -95,8 +95,11 @@ bin : pre-build
 
 
 .PHONY : termite
+TERMITE_THEME := base16-tomorrow-night.config
 termite : pre-build
 	$(call copy, ./termite/termite-config, ${HOME}/.config/termite/config)
+	@echo "Setting termite theme: ${TERMITE_THEME}"
+	@cat ./base16-termite/themes/${TERMITE_THEME} >> ${HOME}/.config/termite/config
 
 
 .PHONY : fonts
