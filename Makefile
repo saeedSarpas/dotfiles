@@ -39,7 +39,7 @@ vim :
 .PHONY : i3wm
 i3wm : pre-build gtk X11 termite fonts
 	@rm -rf ${HOME}/.i3;
-	$(call copy, ./i3/i3-config, ${HOME}/.config/i3/config)
+	$(call copy, ./i3/i3.config, ${HOME}/.config/i3/config)
 	$(call copy, ./imgs/desktop-bg.jpg, ${HOME}/.config/i3/)
 	$(call copy, ./imgs/terminal-bg.png, ${HOME}/.config/i3/)
 	$(call copy, ./imgs/terminal-solarized-bg.png, ${HOME}/.config/i3/)
@@ -52,7 +52,7 @@ i3wm : pre-build gtk X11 termite fonts
 
 .PHONY : sway
 sway : pre-build bin gtk termite fonts
-	$(call copy, ./sway/config, ${HOME}/.config/sway/config)
+	$(call copy, ./sway/sway.config, ${HOME}/.config/sway/config)
 	$(call copy, ./imgs/Eslimi_3840x2160.jpg, ${HOME}/.config/sway/)
 	$(call check_prog, feh termite rofi)
 	@echo "Please make sure that imagemagick is installed."
@@ -60,7 +60,7 @@ sway : pre-build bin gtk termite fonts
 
 .PHONY : spacemacs
 spacemacs :
-	$(call copy, ./spacemacs/spacemacs-config, ${HOME}/.spacemacs)
+	$(call copy, ./spacemacs/spacemacs.config, ${HOME}/.spacemacs)
 
 
 # Need root permission
@@ -97,7 +97,7 @@ bin : pre-build
 .PHONY : termite
 TERMITE_THEME := base16-tomorrow-night.config
 termite : pre-build
-	$(call copy, ./termite/termite-config, ${HOME}/.config/termite/config)
+	$(call copy, ./termite/termite.config, ${HOME}/.config/termite/config)
 	@echo "Setting termite theme: ${TERMITE_THEME}"
 	@cat ./base16-termite/themes/${TERMITE_THEME} >> ${HOME}/.config/termite/config
 
