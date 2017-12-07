@@ -1,5 +1,7 @@
 SHELL := /bin/bash
 
+DEV_DIR := ${HOME}/development
+
 
 .PHONY : help
 help :
@@ -8,6 +10,7 @@ help :
 	@echo " - vim";
 	@echo " - sway (including bin, gtk, termite, fonts)";
 	@echo " - i3wm (including gtk, termite, fonts and X11)";
+	@echo " - proton";
 	@echo " - spacemacs";
 	@echo " - gtk";
 	@echo " - X11";
@@ -22,7 +25,8 @@ all : zsh vim sway bin spacemacs
 
 .PHONY : zsh
 zsh :
-	@[ ! -d ${HOME}/.oh-my-zsh ] && sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" || true
+	@[ ! -d ${HOME}/.oh-my-zsh ] \
+		&& sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" || true
 	@touch ${HOME}/.zshenv.local
 	$(call copy, ./zsh/zshrc, ${HOME}/.zshrc)
 	$(call copy, ./zsh/zaliases, ${HOME}/.zaliases)
@@ -56,6 +60,17 @@ sway : pre-build bin gtk termite fonts
 	$(call copy, ./imgs/Eslimi_3840x2160.jpg, ${HOME}/.config/sway/)
 	$(call check_prog, feh termite rofi)
 	@echo "Please make sure that imagemagick is installed."
+
+
+.PHONY : proton
+proton : pre-build
+	$(call check_prog, lein apm)
+	@[ ! -d ${DEV_DIR}/proton ] \
+		&& git clone git@github.com:dvcrn/proton.git ${DEV_DIR}/proton || true
+	@cd ${DEV_DIR}/proton && lein run -m build/release
+	@cd ${DEV_DIR}/proton/plugin && apm install && apm link
+	$(call copy, ./proton/proton.edn, ${HOME}/.proton)
+
 
 
 .PHONY : spacemacs
