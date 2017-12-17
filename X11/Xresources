@@ -23,6 +23,7 @@ rofi.hide-scrollbar:    true
 
 ! Xft settings
 
+Xft.dpi: 192
 Xft.rgba: rgb
 Xft.hinting: true
 Xft.autohint: false

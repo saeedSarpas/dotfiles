@@ -17,6 +17,7 @@ help :
 	@echo " - bin";
 	@echo " - termite";
 	@echo " - fonts";
+	@echo " - hidpi"
 
 
 .PHONY : all
@@ -78,7 +79,7 @@ spacemacs :
 	$(call copy, ./spacemacs/spacemacs.config, ${HOME}/.spacemacs)
 
 
-# Need root permission
+# Needs root access
 GRUB_DIR := /boot/grub
 GRUB_THEMES_DIR := ${GRUB_DIR}/themes
 ESLIMI_THEME := grub-eslimi-theme
@@ -101,6 +102,7 @@ gtk : pre-build
 .PHONY : X11
 X11 : pre-build
 	$(call copy, ./X11/Xresources, ${HOME}/.Xresources)
+	$(call copy, ./X11/xinitrc, ${HOME}/.xinitrc)
 	$(call copy, ./base16-xresources/xresources/*, ${HOME}/.Xresources.d/themes)
 
 
@@ -121,6 +123,23 @@ termite : pre-build
 fonts : pre-build
 	$(call copy, ./YosemiteSanFranciscoFontTTF/*.ttf, ${HOME}/.fonts)
 	$(call copy, ./Font-Awesome/fonts/*.ttf, ${HOME}/.fonts)
+
+.PHONY : hidpi
+hidpi : pre-build X11 zsh gtk
+	$(shell xdpyinfo | grep -B 2 resolutio	n)
+	@echo "export QT_AUTO_SCREEN_SCALE_FACTOR=1" >> ~/.zshenv.local
+	@echo "export GDK_SCALE=2" >> ~/.zshenv.local
+	@echo "export GDK_DPI_SCALE=0.5" >> ~/.zshenv.local
+	@echo "export ELM_SCALE=1.5" >> ~/.zshenv.local
+	@touch ~/.config/chromium-flags.conf
+	@echo "--force-device-scale-factor=2" >> ~/.config/chromium-flags.conf
+	@echo "alias chromium='chromium --force-device-scale-factor=2'" >> ~/.zaliases
+	@echo "alias spotify='spotify --force-device-scale-factor=2'" >> ~/.zaliases
+	@echo "[GTK +2] Use oomox-git to generate a theme"
+	@echo "[FireFox] set parameter layout.css.devPixelsPerPx to 2 in about:config"
+	@echo "[Thunderbird] set parameter layout.css.devPixelsPerPx to 2"
+	@echo "[Gimp] Use gimp-hidpi"
+	# TODO: Side display section of HiDPI article
 
 
 .PHONY : pre-build
