@@ -10,14 +10,14 @@ help :
 	@echo " - vim";
 	@echo " - sway (including bin, gtk, termite, fonts)";
 	@echo " - i3wm (including gtk, termite, fonts and X11)";
-	@echo " - proton";
+	@echo " - polybar (including i3wm)"
 	@echo " - spacemacs";
 	@echo " - gtk";
 	@echo " - X11";
 	@echo " - bin";
 	@echo " - termite";
 	@echo " - fonts";
-	@echo " - hidpi"
+	@echo " - hidpi (including X11, zsh, gtk)"
 
 
 .PHONY : all
@@ -53,6 +53,12 @@ i3wm : pre-build gtk X11 termite fonts
 		lxappearance rofi compton scrot i3blocks i3-msg)
 	@echo "Please make sure that imagemagick is installed."
 	@[ command -v i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
+
+
+.PHONY : polybar
+polybar : pre-build i3wm
+	$(call copy, ./polybar/polybar.config, ${HOME}/.config/polybar/config)
+	$(call check_prog, mopidy)
 
 
 .PHONY : sway
@@ -104,11 +110,12 @@ X11 : pre-build
 	$(call copy, ./X11/Xresources, ${HOME}/.Xresources)
 	$(call copy, ./X11/xinitrc, ${HOME}/.xinitrc)
 	$(call copy, ./base16-xresources/xresources/*, ${HOME}/.Xresources.d/themes)
+	@echo "Please consider copying ./X11/70-synaptics.conf to /etc/X11/xorg.conf.d/"
 
 
 .PHONY : bin
 bin : pre-build
-	$(call copy, ./bin/*, ${HOME}/.local/bin)
+	$(call copy, ./bin/rofi ./bin/sway, ${HOME}/.local/bin)
 
 
 .PHONY : termite
@@ -126,7 +133,6 @@ fonts : pre-build
 
 .PHONY : hidpi
 hidpi : pre-build X11 zsh gtk
-	$(shell xdpyinfo | grep -B 2 resolutio	n)
 	@echo "export QT_AUTO_SCREEN_SCALE_FACTOR=1" >> ~/.zshenv.local
 	@echo "export GDK_SCALE=2" >> ~/.zshenv.local
 	@echo "export GDK_DPI_SCALE=0.5" >> ~/.zshenv.local
@@ -135,6 +141,9 @@ hidpi : pre-build X11 zsh gtk
 	@echo "--force-device-scale-factor=2" >> ~/.config/chromium-flags.conf
 	@echo "alias chromium='chromium --force-device-scale-factor=2'" >> ~/.zaliases
 	@echo "alias spotify='spotify --force-device-scale-factor=2'" >> ~/.zaliases
+	@sed -i 's/:size.*/:size 20/' ${HOME}/.spacemacs
+	@sed -i 's/96/192/' ${HOME}/.local/bin/rofi
+	$(call copy, ./bin/spotify, ${HOME}/.local/bin)
 	@echo "[GTK +2] Use oomox-git to generate a theme"
 	@echo "[FireFox] set parameter layout.css.devPixelsPerPx to 2 in about:config"
 	@echo "[Thunderbird] set parameter layout.css.devPixelsPerPx to 2"
@@ -147,6 +156,7 @@ pre-build :
 	@mkdir -p ${HOME}/.config;
 	@mkdir -p ${HOME}/.config/i3;
 	@mkdir -p ${HOME}/.config/sway;
+	@mkdir -p ${HOME}/.config/polybar;
 	@mkdir -p ${HOME}/.config/termite;
 	@mkdir -p ${HOME}/.config/gtk-3.0;
 	@mkdir -p ${HOME}/.Xresources.d;
