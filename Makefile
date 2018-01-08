@@ -28,10 +28,12 @@ all : zsh vim sway bin spacemacs
 zsh :
 	@[ ! -d ${HOME}/.oh-my-zsh ] \
 		&& sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" || true
-	@touch ${HOME}/.zshenv.local
 	$(call copy, ./zsh/zshrc, ${HOME}/.zshrc)
+	@touch ${HOME}/.zshrc.local
 	$(call copy, ./zsh/zaliases, ${HOME}/.zaliases)
+	@touch ${HOME}/.zaliases.local
 	$(call copy, ./zsh/zshenv, ${HOME}/.zshenv)
+	@touch ${HOME}/.zshenv.local
 	@source ${HOME}/.zshrc
 
 
