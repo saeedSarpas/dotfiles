@@ -11,8 +11,11 @@ alias hobbes='cd /vol/hobbes/hobbesraid/saeed'
 
 # ETHZ
 alias theia='ssh -XY sarpass@theia.ethz.ch'
-alias phys='ssh -XY sarpass@login.phys.ethz.ch'
+alias theiadev='sshfs sarpass@theia.ethz.ch:/scratch/saeed/development ~/development/theia.remote'
+alias theiares='sshfs sarpass@theia.ethz.ch:/scratch/saeed/Results ~/development/Results.theia'
 alias eos='ssh -XY sarpass@eos.ethz.ch'
+alias eosres='sshfs sarpass@eos.ethz.ch:/scratch/saeed/Results ~/development/Results.eos'
+alias phys='ssh -XY sarpass@login.phys.ethz.ch'
 
 # Clear
 alias c='clear'
@@ -38,6 +41,7 @@ alias vcmac='ffmpeg -f avfoundation -i $1 -s 1280x720 -r 30 -acodec pcm_s16le -v
 
 # feh
 alias feh='feh -F. -d'
+alias fehz='feh -F. -d --auto-zoom'
 
 # screen
 alias sls='screen -ls'
