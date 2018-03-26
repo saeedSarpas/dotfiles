@@ -146,6 +146,7 @@ hidpi : pre-build X11 zsh gtk
 	@echo "alias spotify='spotify --force-device-scale-factor=2'" >> ~/.zaliases
 	@sed -i 's/:size.*/:size 20/' ${HOME}/.spacemacs
 	@sed -i 's/96/192/' ${HOME}/.local/bin/rofi
+	@sed -i 's/96/192/' ${HOME}/.Xresources
 	$(call copy, ./bin/spotify, ${HOME}/.local/bin)
 	@echo "[GTK +2] Use oomox-git to generate a theme"
 	@echo "[FireFox] set parameter layout.css.devPixelsPerPx to 2 in about:config"
