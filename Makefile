@@ -39,8 +39,9 @@ zsh :
 
 .PHONY : vim
 vim :
-	@[ ! -d ${HOME}/.spf13-vim-3 ] && sh <(curl https://j.mp/spf13-vim3 -L) || true
-	$(call copy, ./vim/vimrc.local, ${HOME}/.vimrc.local)
+	@[ ! -d ${HOME}/.SpaceVim ] && curl -sLf https://spacevim.org/install.sh | bash || true
+	@mkdir -p $(HOME)/.SpaceVim.d
+	$(call copy, ./vim/init.vim, ${HOME}/.SpaceVim.d/init.vim)
 
 
 .PHONY : i3wm
