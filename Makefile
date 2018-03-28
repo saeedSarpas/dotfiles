@@ -42,18 +42,33 @@ vim :
 	@[ ! -d ${HOME}/.SpaceVim ] && curl -sLf https://spacevim.org/install.sh | bash || true
 	@mkdir -p $(HOME)/.SpaceVim.d
 	$(call copy, ./vim/init.vim, ${HOME}/.SpaceVim.d/init.vim)
+	$(call check_prog, nvim-qt)
 
 
-.PHONY : i3wm
-i3wm : pre-build gtk X11 termite fonts
+.PHONY : i3-pre-build
+i3-pre-build: pre-build gtk X11 termite fonts
 	@rm -rf ${HOME}/.i3;
-	$(call copy, ./i3/i3.config, ${HOME}/.config/i3/config)
+	@touch ${HOME}/.config/i3/config
+	@cat ./i3/i3-main.config > ${HOME}/.config/i3/config
+	@cat ./i3/i3-colors.config >> ${HOME}/.config/i3/config
 	$(call copy, ./imgs/desktop-bg.jpg, ${HOME}/.config/i3/)
 	$(call copy, ./imgs/terminal-bg.png, ${HOME}/.config/i3/)
 	$(call copy, ./imgs/terminal-solarized-bg.png, ${HOME}/.config/i3/)
 	$(call copy, ./i3/i3lock.sh, ${HOME}/.i3lock.sh)
 	$(call check_prog, arandr feh pactl playerctl termite urxvt terminator \
-		lxappearance rofi compton scrot i3blocks i3-msg)
+		lxappearance rofi compton scrot i3-msg)
+
+
+.PHONY : i3
+i3 : i3-pre-build
+	@cat ./i3/i3-bar.config >> ${HOME}/.config/i3/config
+	@echo "Please make sure that imagemagick is installed."
+	@[ command -v i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
+	$(call check_prog, i3block)
+
+.PHONY : i3-kde
+i3-kde : i3-pre-build
+	@cat ./i3/i3-kde.config >> ${HOME}/.config/i3/config
 	@echo "Please make sure that imagemagick is installed."
 	@[ command -v i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
 
@@ -135,7 +150,7 @@ fonts : pre-build
 	$(call copy, ./Font-Awesome/fonts/*.ttf, ${HOME}/.fonts)
 
 .PHONY : hidpi
-hidpi : pre-build X11 zsh gtk
+hidpi :
 	@echo "export QT_AUTO_SCREEN_SCALE_FACTOR=1" >> ~/.zshenv.local
 	@echo "export GDK_SCALE=2" >> ~/.zshenv.local
 	@echo "export GDK_DPI_SCALE=0.5" >> ~/.zshenv.local
@@ -144,7 +159,7 @@ hidpi : pre-build X11 zsh gtk
 	@echo "--force-device-scale-factor=2" >> ~/.config/chromium-flags.conf
 	@echo "alias chromium='chromium --force-device-scale-factor=2'" >> ~/.zaliases
 	@echo "alias spotify='spotify --force-device-scale-factor=2'" >> ~/.zaliases
-	@sed -i 's/:size.*/:size 20/' ${HOME}/.spacemacs
+	# @sed -i 's/:size.*/:size 20/' ${HOME}/.spacemacs
 	@sed -i 's/96/192/' ${HOME}/.local/bin/rofi
 	@sed -i 's/96/192/' ${HOME}/.Xresources
 	$(call copy, ./bin/spotify, ${HOME}/.local/bin)
