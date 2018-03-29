@@ -68,6 +68,10 @@ i3 : i3-pre-build
 
 .PHONY : i3-kde
 i3-kde : i3-pre-build
+	@mkdir -p ${HOME}/.config/plasma-workspace
+	@mkdir -p ${HOME}/.config/plasma-workspace/env
+	$(call copy, ./i3/set_window_manager.sh, ${HOME}/.config/plasma-workspace/env/)
+	@chmod +x ${HOME}/.config/plasma-workspace/env/set_window_manager.sh
 	@cat ./i3/i3-kde.config >> ${HOME}/.config/i3/config
 	@echo "Please make sure that imagemagick is installed."
 	@[ command -v i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
