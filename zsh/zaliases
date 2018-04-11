@@ -85,7 +85,7 @@ alias gpuoff='sudo tee /proc/acpi/bbswitch <<<OFF && dmesg |tail -1 && gpust'
 
 # Find
 grepp(){
-  grep -rnw '.' -A ${2:0} -B ${2:0} -e $1 --color=always | less -r
+  grep -rnw '.' -A ${2:0} -B ${2:0} -e $1 --color=always $3 | less -r
 }
 
 source ~/.zaliases.local
