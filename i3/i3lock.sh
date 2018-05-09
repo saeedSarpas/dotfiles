@@ -25,4 +25,6 @@ convert ${file_miff} \
 
 i3lock -u -i ${file}
 
+# xwd -root -silent | convert -scale 50% xc:"gray(50%)" +noise Gaussian -blur 0x8 -scale 200% xwd:- test.png
+
 # rm ${file} ${file_mpc}
