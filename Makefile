@@ -48,6 +48,7 @@ vim :
 .PHONY : i3-pre-build
 i3-pre-build: pre-build gtk X11 termite fonts
 	@rm -rf ${HOME}/.i3;
+	@rm -f ${HOME}/.config/i3/config;
 	@touch ${HOME}/.config/i3/config
 	@cat ./i3/i3-main.config > ${HOME}/.config/i3/config
 	@cat ./i3/i3-colors.config >> ${HOME}/.config/i3/config
@@ -76,10 +77,17 @@ i3-kde : i3-pre-build
 	@echo "Please make sure that imagemagick is installed."
 	@[ command -v i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
 
+.PHONY : i3-polybar
+i3-polybar : i3-pre-build polybar
+	@cat ./i3/i3-polybar.config >> $(HOME)/.config/i3/config
+	@[ command -v i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
+
 
 .PHONY : polybar
-polybar : pre-build i3wm
+polybar : pre-build
 	$(call copy, ./polybar/polybar.config, ${HOME}/.config/polybar/config)
+	$(call copy, ./polybar/polybar-launch.sh, $(HOME)/.config/polybar/launch.sh)
+	@chmod +x $(HOME)/.config/polybar/launch.sh
 	$(call check_prog, mopidy)
 
 
