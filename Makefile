@@ -154,6 +154,7 @@ termite : pre-build
 	$(call copy, ./termite/termite.config, ${HOME}/.config/termite/config)
 	@echo "Setting termite theme: ${TERMITE_THEME}"
 	@cat ./base16-termite/themes/${TERMITE_THEME} >> ${HOME}/.config/termite/config
+	@sed -i 's/^background.*/background\ =\ rgba\(29\,31\,33\,0.8\)/' ${HOME}/.config/termite/config
 
 
 .PHONY : fonts
