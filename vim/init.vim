@@ -11,24 +11,52 @@
 let g:spacevim_enable_debug = 1
 let g:spacevim_realtime_leader_guide = 1
 let g:spacevim_buffer_index_type = 1
+
 " Smart close
 let g:spacevim_windows_smartclose = ''
+
 " VimFiler
 let g:spacevim_enable_vimfiler_welcome = 1
+
 " Font
 let g:spacevim_guifont = 'Inconsolata\ 14'
+
 " Theme
+let g:spacevim_enable_guicolors = 0
 let g:spacevim_colorscheme = 'onedark'
 let g:spacevim_statusline_separator = 'fire'
 let g:spacevim_enable_os_fileformat_icon = 1
 let g:spacevim_enable_tabline_filetype_icon = 1
 let g:spacevim_enable_statusline_display_mode = 1
-" Neomake
+
+" Neomake C/C++
+let g:neomake_c_enabled_neomake = 1
 let g:neomake_c_enabled_makers = ['gcc']
-let g:neomake_cpp_enabled_makers = ['gcc']
-let g:neomake_fortran_gfortran_args = 
-      \ ['-fsyntax-only', '-Wall', '-Wextra', '-J ./include',
-      \ '-ffree-line-length-none']
+
+let g:neomake_cpp_enabled_neomake = 1
+let g:neomake_cpp_enabled_makers = ['g++']
+
+let g:neomake_c_clang_args = ['-Wall', '-std=c11']
+let g:neomake_cpp_clang_args = ['-Wall', '-std=c++11']
+
+for dir in split(globpath('./lib', '*'))
+  let g:neomake_c_clang_args = [
+        \ '-I', './lib/' . substitute(dir, './lib/', '', '') . '/include'
+        \ ] + g:neomake_c_clang_args
+  let g:neomake_cpp_clang_args = [
+        \ '-I', './lib/' . substitute(dir, './lib/', '', '') . '/include'
+        \ ] + g:neomake_c_clang_args
+endfor
+
+" Neomake Fortran
+let g:neomake_fortran_enabled_makers = ['gfortran']
+let g:neomake_fortran_gfortran_args = [
+      \ '-fsyntax-only',
+      \ '-Wall', '-Wextra',
+      \ '-J ./include',
+      \ '-ffree-line-length-none'
+      \ ]
+
 " Custom plugins
 let g:spacevim_custom_plugins = [
       \ ['joshdick/onedark.vim'],
