@@ -29,6 +29,9 @@ let g:spacevim_enable_os_fileformat_icon = 1
 let g:spacevim_enable_tabline_filetype_icon = 1
 let g:spacevim_enable_statusline_display_mode = 1
 
+" Not freezing mouse cursor in insert mode
+let g:spacevim_auto_disable_touchpad = 0
+
 " Neomake C/C++
 let g:neomake_c_enabled_neomake = 1
 let g:neomake_c_enabled_makers = ['gcc']
