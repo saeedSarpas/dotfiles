@@ -8,6 +8,7 @@
 
 
 " SpaceVim Options: {{{
+let g:spacevim_enable_guicolors = 0
 let g:spacevim_enable_debug = 1
 let g:spacevim_realtime_leader_guide = 1
 let g:spacevim_buffer_index_type = 1
