@@ -69,10 +69,10 @@ alias syp='sudo systemctl stop'
 alias sys='sudo systemctl start'
 alias syst='sudo systemctl status'
 
-# Yaourt
-alias ya='yaourt'
-alias yas='yaourt -S'
-alias update='yaourt -Syu'
+# Yay
+alias ya='yay'
+alias yas='yay -S'
+alias update='yay -Syu'
 
 # Sound playback using pulseaudio
 alias lb='pactl load-module module-loopback latency_msec=1'
