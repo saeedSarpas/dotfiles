@@ -88,4 +88,12 @@ grepp(){
   grep -rnw '.' -A ${2:0} -B ${2:0} -e $1 --color=always $3 | less -r
 }
 
+# Make
+alias mk='make'
+
+# paCage
+alias mkt='make test'
+alias mkl='make libstatic'
+alias mkll='make libshared'
+
 source ~/.zaliases.local
