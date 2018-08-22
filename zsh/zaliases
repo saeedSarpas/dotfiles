@@ -16,6 +16,7 @@ alias theiares='sshfs sarpass@theia.ethz.ch:/scratch/saeed/Results ~/development
 alias eos='ssh -XY sarpass@eos.ethz.ch'
 alias eosres='sshfs sarpass@eos.ethz.ch:/scratch/saeed/Results ~/development/Results.eos'
 alias phys='ssh -XY sarpass@login.phys.ethz.ch'
+alias ethvpn='sudo openconnect sslvpn.ethz.ch -u sarpass --authgroup=ETHZ'
 
 # Clear
 alias c='clear'
@@ -82,6 +83,9 @@ alias lbp='pactl unload-module module-loopback'
 alias gpust='cat /proc/acpi/bbswitch'
 alias gpuon='sudo tee /proc/acpi/bbswitch <<<ON && dmesg |tail -1 && gpust'
 alias gpuoff='sudo tee /proc/acpi/bbswitch <<<OFF && dmesg |tail -1 && gpust'
+lit(){
+  sudo echo "$1" | sudo tee /sys/class/backlight/intel_backlight/brightness
+}
 
 # Find
 grepp(){
