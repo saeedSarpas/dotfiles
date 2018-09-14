@@ -8,6 +8,7 @@ help :
 	@echo "Targets:";
 	@echo " - zsh";
 	@echo " - vim";
+	@echo " - atom";
 	@echo " - sway (including bin, gtk, termite, fonts)";
 	@echo " - i3wm (including gtk, termite, fonts and X11)";
 	@echo " - polybar (including i3wm)"
@@ -43,6 +44,12 @@ vim :
 	@mkdir -p $(HOME)/.SpaceVim.d
 	$(call copy, ./vim/init.vim, ${HOME}/.SpaceVim.d/init.vim)
 	$(call check_prog, nvim-qt)
+
+
+.PHONY : atom
+atom :
+	@[ ! -d ${HOME}/.atom ] && echo "You should install atom first" || true
+	$(call copy, ./atom/keymap.cson, ${HOME}/.atom)
 
 
 .PHONY : i3-pre-build
