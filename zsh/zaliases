@@ -94,6 +94,10 @@ grepp(){
 
 # Make
 alias mk='make'
+alias mkt='make test'
+alias mkw='make watch'
+alias mkl='make libstatic'
+alias mkc='make -C'
 
 # paCage
 alias mkt='make test'
