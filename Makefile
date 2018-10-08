@@ -50,6 +50,9 @@ vim :
 atom :
 	@[ ! -d ${HOME}/.atom ] && echo "You should install atom first" || true
 	$(call copy, ./atom/keymap.cson, ${HOME}/.atom)
+	$(call apm_install, vim-mode-plus@1.34.0 \
+		language-fortran@2.1.7 ide-fortran@0.3.0 linter \
+		linter-ui-default intentions busy-signal linter-gfortran@0.5.0 )
 
 
 .PHONY : i3-pre-build
@@ -214,4 +217,9 @@ endef
 define check_prog
 	$(foreach p, ${1}, $(shell command -v ${p} >/dev/null 2>&1 \
 		|| echo >&2 "Please consider installing ${p}.";))
+endef
+
+
+define apm_install
+	@$(foreach p,$1,apm install $p;)
 endef
