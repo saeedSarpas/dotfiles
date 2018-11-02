@@ -103,5 +103,9 @@ alias mkc='make -C'
 alias mkt='make test'
 alias mkl='make libstatic'
 alias mkll='make libshared'
+alias mkc='make clean'
+alias mkcc='make -C'
+alias mkw='make watch'
+alias mkd='make debug'
 
 source ~/.zaliases.local
