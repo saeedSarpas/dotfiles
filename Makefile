@@ -51,6 +51,8 @@ atom :
 	@[ ! -d ${HOME}/.atom ] && echo "You should install atom first" || true
 	$(call copy, ./atom/keymap.cson, ${HOME}/.atom)
 	$(call apm_install, vim-mode-plus@1.34.0 \
+		minimap \
+		file-icons \
 		language-fortran@2.1.7 ide-fortran@0.3.0 linter \
 		linter-ui-default intentions busy-signal linter-gfortran@0.5.0 )
 
@@ -180,8 +182,8 @@ hidpi :
 	@echo "export ELM_SCALE=1.5" >> ~/.zshenv.local
 	@touch ~/.config/chromium-flags.conf
 	@echo "--force-device-scale-factor=2" >> ~/.config/chromium-flags.conf
-	@echo "alias chromium='chromium --force-device-scale-factor=2'" >> ~/.zaliases
-	@echo "alias spotify='spotify --force-device-scale-factor=2'" >> ~/.zaliases
+	@echo "alias chromium='chromium --force-device-scale-factor=2'" >> ~/.zaliases.local
+	@echo "alias spotify='spotify --force-device-scale-factor=2'" >> ~/.zaliases.local
 	# @sed -i 's/:size.*/:size 20/' ${HOME}/.spacemacs
 	@sed -i 's/96/192/' ${HOME}/.local/bin/rofi
 	@sed -i 's/96/192/' ${HOME}/.Xresources

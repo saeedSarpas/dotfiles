@@ -94,3 +94,4 @@ source ~/.zshenv
 
 # neofetch 
 command -v neofetch >/dev/null 2>&1 && neofetch || true
+calcurse
