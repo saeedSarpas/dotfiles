@@ -109,6 +109,8 @@ alias mkw='make watch'
 alias mkd='make debug'
 
 # Git
+alias gsub="git submodule"
 alias gsu="git submodule update --init --recursive"
+alias gsa="git submodule add"
 
 source ~/.zaliases.local
