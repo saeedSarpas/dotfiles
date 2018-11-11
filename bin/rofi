@@ -1,6 +1,6 @@
 #!/bin/bash
 
-/bin/rofi -show run \
+/bin/rofi -show $1 \
           -separator-style none -font "Yosemite San Francisco 12"\
           -columns 1 -width 100 -padding 1500% -dpi 96 \
           -lines 8 -bw 0 -eh 1.5 -hide-scrollbar true \

@@ -11,3 +11,6 @@ polybar top 2>&1 &
 polybar bottom 2>&1 &
 
 echo "launched polybar"
+
+# Hot corners
+xdotool behave_screen_edge --delay 500 --quiesce 1000 top-left key ctrl+shift+space &
