@@ -110,7 +110,9 @@ alias mkd='make debug'
 
 # Git
 alias gsub="git submodule"
-alias gsu="git submodule update --init --recursive"
+alias gsu="git submodule update"
+alias gsui="git submodule update --recursive --init"
+alias gsur="git submodule update --recursive --remote"
 alias gsa="git submodule add"
 
 source ~/.zaliases.local
