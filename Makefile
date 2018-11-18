@@ -54,7 +54,8 @@ atom :
 		minimap \
 		file-icons \
 		language-fortran@2.1.7 ide-fortran@0.3.0 linter \
-		linter-ui-default intentions busy-signal linter-gfortran@0.5.0 )
+		linter-ui-default intentions busy-signal linter-gfortran@0.5.0 \
+		language-cmake )
 
 
 .PHONY : i3-pre-build
