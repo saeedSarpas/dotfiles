@@ -16,3 +16,6 @@
 [submodule "base16-termite"]
 	path = base16-termite
 	url = git@github.com:khamer/base16-termite.git
+[submodule "Qogir-theme"]
+	path = Qogir-theme
+	url = git@github.com:vinceliuice/Qogir-theme.git

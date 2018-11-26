@@ -146,6 +146,7 @@ grub-theme:
 gtk : pre-build
 	$(call copy, ./gtk/gtkrc-2.0, ${HOME}/.gtkrc-2.0)
 	$(call copy, ./gtk/settings.ini, ${HOME}/.config/gtk-3.0/)
+	./Qogir-theme/Install
 
 
 .PHONY : X11
