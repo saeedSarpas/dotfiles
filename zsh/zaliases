@@ -18,6 +18,9 @@ alias eosres='sshfs sarpass@eos.ethz.ch:/scratch/saeed/Results ~/development/Res
 alias phys='ssh -XY sarpass@login.phys.ethz.ch'
 alias ethvpn='sudo openconnect sslvpn.ethz.ch -u sarpass --authgroup=ETHZ'
 
+# Euler
+alias euler='ssh -XY sarpass@euler.ethz.ch'
+
 # Clear
 alias c='clear'
 
