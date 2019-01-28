@@ -1,5 +1,5 @@
 # AIfA
-alias aifa-gates='ssh -p1234 -XY saeed@gates.astro.uni-bonn.de'
+alias aifa-gates='ssh -p1234 -XY saeed@gate4.astro.uni-bonn.de'
 aifa-science() {
   ssh -XY saeed@science0$1
 }
@@ -16,7 +16,7 @@ alias theiares='sshfs sarpass@theia.ethz.ch:/scratch/saeed/Results ~/development
 alias eos='ssh -XY sarpass@eos.ethz.ch'
 alias eosres='sshfs sarpass@eos.ethz.ch:/scratch/saeed/Results ~/development/Results.eos'
 alias phys='ssh -XY sarpass@login.phys.ethz.ch'
-alias ethvpn='sudo openconnect sslvpn.ethz.ch -u sarpass --authgroup=ETHZ'
+alias ethvpn='sudo openconnect sslvpn.ethz.ch -u sarpass@student-net.ethz.ch --authgroup=student-net'
 
 # Euler
 alias euler='ssh -XY sarpass@euler.ethz.ch'
