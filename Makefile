@@ -50,6 +50,7 @@ vim :
 atom :
 	@[ ! -d ${HOME}/.atom ] && echo "You should install atom first" || true
 	$(call copy, ./atom/keymap.cson, ${HOME}/.atom)
+	$(call copy, ./atom/snippets.cson, ${HOME}/.atom)
 	$(call apm_install, vim-mode-plus@1.34.0 \
 		minimap \
 		file-icons \

@@ -1,0 +1,13 @@
+# LANGUAGE Fortran -------------------------------------------------------------------
+'.source.fortran.free':
+  'Fortran Test File':
+    'prefix': 'test'
+    'body': """
+    logical function $1() result ( failed )
+      use $2
+
+      implicit none
+
+      $3
+    end function $1
+    """
