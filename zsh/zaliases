@@ -15,6 +15,8 @@ alias theiadev='sshfs sarpass@theia.ethz.ch:/scratch/saeed/development ~/develop
 alias theiares='sshfs sarpass@theia.ethz.ch:/scratch/saeed/Results ~/development/Results.theia'
 alias eos='ssh -XY sarpass@eos.ethz.ch'
 alias eosres='sshfs sarpass@eos.ethz.ch:/scratch/saeed/Results ~/development/Results.eos'
+alias hyperion='ssh -XY sarpass@hyperion.ethz.ch'
+alias phoebe='ssh -XY sarpass@phoebe.ethz.ch'
 alias phys='ssh -XY sarpass@login.phys.ethz.ch'
 alias ethvpn='sudo openconnect sslvpn.ethz.ch -u sarpass@student-net.ethz.ch --authgroup=student-net'
 
