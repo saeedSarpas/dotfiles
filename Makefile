@@ -51,12 +51,17 @@ atom :
 	@[ ! -d ${HOME}/.atom ] && echo "You should install atom first" || true
 	$(call copy, ./atom/keymap.cson, ${HOME}/.atom)
 	$(call copy, ./atom/snippets.cson, ${HOME}/.atom)
-	$(call apm_install, vim-mode-plus@1.34.0 \
+	$(call apm_install, \
+		vim-mode-plus \
 		minimap \
 		file-icons \
-		language-fortran@2.1.7 ide-fortran@0.3.0 linter \
-		linter-ui-default intentions busy-signal linter-gfortran@0.5.0 \
-		language-cmake )
+		language-fortran ide-fortran \
+		linter-ui-default intentions busy-signal linter-gfortran \
+		atom-dark-fusion-syntax \
+		language-latex \
+		language-cmake \
+		symbols-tree-view \
+		git-time-machine )
 
 
 .PHONY : i3-pre-build
@@ -225,6 +230,10 @@ define check_prog
 endef
 
 
+define apm_install_packages
+	@[ ! -d ${HOME}/.oh-my-zsh ] && apm install $1 || true
+endef
+
 define apm_install
-	@$(foreach p,$1,apm install $p;)
+	@$(foreach p,$1,$(call apm_install_packages $p))
 endef
