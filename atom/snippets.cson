@@ -111,10 +111,17 @@
     'body': """
     logical function $1() result ( failed )
       use $2
+      use rhyme_assertion
 
       implicit none
 
-      $3
+      type ( assertion_t ) :: $3
+
+      $3 = .describe. "$4"
+
+      call $3%expect( $5 )
+
+      failed = $3%failed()
     end function $1
     """
 
@@ -172,3 +179,19 @@
       $3
     end submodule $1$2
     """
+
+  'test describe':
+    'prefix': 'tdesc'
+    'body': '$1 = .describe. "$2"'
+
+  'test expect':
+    'prefix': 'texp'
+    'body': 'call $1%expect( $2 )'
+
+  'test failed':
+    'prefix': 'tfail'
+    'body': 'failed = $1%failed()'
+
+  'test reset':
+    'prefix': 'treset'
+    'body': 'call $1%reset'
