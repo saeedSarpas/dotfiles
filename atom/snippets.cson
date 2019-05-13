@@ -195,3 +195,44 @@
   'test reset':
     'prefix': 'treset'
     'body': 'call $1%reset'
+
+  'factory':
+    'prefix': 'factory'
+    'body': """
+    module $1_factory
+      use $1
+
+      implicit none
+
+      type $1_factory_t
+        logical :: initialized = .false.
+      contains
+        procedure :: init => $1_factory_init
+        procedure :: generate => $1_factory_generate
+      end type $1_factory_t
+
+      type ( $1_factory_t ) :: $2 = $1_factory_t()
+
+    contains
+
+      subroutine $1_factory_init ( this )
+        implicit none
+
+        class ( $1_factory_t ), intent ( inout ) :: this
+
+        this%initialized = .true.
+      end subroutine $1_factory_init
+
+
+      function $1_factory_generate ( this ) result ( $3)
+        implicit none
+
+        class ( $1_factory_t ), intent ( inout ) :: this
+        type ( $4 ) :: $3
+
+        if ( .not. this%initialized ) call this%init
+
+        $5
+      end function $1_factory_generate
+    end module $1_factory
+    """
