@@ -19,3 +19,6 @@
 [submodule "Qogir-theme"]
 	path = Qogir-theme
 	url = git@github.com:vinceliuice/Qogir-theme.git
+[submodule "illum"]
+	path = illum
+	url = https://github.com/jmesmon/illum.git
