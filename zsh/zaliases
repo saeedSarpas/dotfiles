@@ -10,11 +10,13 @@ alias aifa-hobbes='ssh -XY saeed@hobbes'
 alias hobbes='cd /vol/hobbes/hobbesraid/saeed'
 
 # ETHZ
+eth() {
+  mkdir -p "~/development/${1}.remote"
+  sshfs sarpass@${1}.ethz.ch:/scratch/saeed ~/development/${1}.remote
+}
+
 alias theia='ssh -XY sarpass@theia.ethz.ch'
-alias theiadev='sshfs sarpass@theia.ethz.ch:/scratch/saeed/development ~/development/theia.remote'
-alias theiares='sshfs sarpass@theia.ethz.ch:/scratch/saeed/Results ~/development/Results.theia'
 alias eos='ssh -XY sarpass@eos.ethz.ch'
-alias eosres='sshfs sarpass@eos.ethz.ch:/scratch/saeed/Results ~/development/Results.eos'
 alias hyperion='ssh -XY sarpass@hyperion.ethz.ch'
 alias phoebe='ssh -XY sarpass@phoebe.ethz.ch'
 alias phys='ssh -XY sarpass@login.phys.ethz.ch'
