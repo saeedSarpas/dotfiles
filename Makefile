@@ -108,6 +108,7 @@ polybar : pre-build
 	$(call copy, ./polybar/polybar-launch.sh, $(HOME)/.config/polybar/launch.sh)
 	@chmod +x $(HOME)/.config/polybar/launch.sh
 	$(call check_prog, mopidy)
+	@echo "Please consider installing illum package for brighness control"
 
 
 .PHONY : sway
