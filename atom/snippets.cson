@@ -236,3 +236,34 @@
       end function $1_factory_generate
     end module $1_factory
     """
+
+  'assertion':
+    'prefix': 'assertion'
+    'body': """
+    module $1_assertion
+      use $1
+      use rhyme_assertion
+
+      implicit none
+
+      interface operator ( .toBe. )
+        module procedure $1_assertion_tobe
+      end interface operator ( .toBe. )
+
+    contains
+
+      pure module function $1_assertion_tobe ( $2_1, $2_2 ) result ( test )
+        implicit none
+
+        type ( $3), intent ( in ) :: $2_1, $2_2
+        type ( test_t ) :: test
+
+        test%op = 'to_be'
+
+        write( test%val, * ) $2_1
+        write( test%exp, * ) $2_2
+
+        test%is_passed = $4
+      end function $1_assertion_tobe
+    end module $1_assertion
+    """
