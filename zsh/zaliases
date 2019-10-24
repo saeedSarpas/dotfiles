@@ -15,6 +15,13 @@ eth() {
   sshfs sarpass@${1}.ethz.ch:/scratch/saeed ~/development/${1}.remote
 }
 
+jupyter_remote() {
+  if [[ -n "$1" ]]; then host=$1; else host=theia; fi
+  if [[ -n "$2" ]]; then port=$2; else port=8888; fi
+
+  ssh -N -f -L localhost:${port}:localhost:${port} sarpass@${host}
+}
+
 alias theia='ssh -XY sarpass@theia.ethz.ch'
 alias eos='ssh -XY sarpass@eos.ethz.ch'
 alias hyperion='ssh -XY sarpass@hyperion.ethz.ch'
