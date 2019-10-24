@@ -51,13 +51,14 @@ atom :
 	@[ ! -d ${HOME}/.atom ] && echo "You should install atom first" || true
 	$(call copy, ./atom/keymap.cson, ${HOME}/.atom)
 	$(call copy, ./atom/snippets.cson, ${HOME}/.atom)
+	$(call copy, ./atom/styles.less, ${HOME}/.atom)
 	$(call apm_install, \
 		vim-mode-plus \
 		minimap \
 		file-icons \
 		language-fortran ide-fortran \
 		linter-ui-default intentions busy-signal linter-gfortran \
-		atom-dark-fusion-syntax \
+		atom-dark-fusion-syntax nucleus-dark-ui \
 		language-latex \
 		language-cmake \
 		symbols-tree-view \
