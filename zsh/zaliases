@@ -128,5 +128,6 @@ alias gsu="git submodule update"
 alias gsui="git submodule update --recursive --init"
 alias gsur="git submodule update --recursive --remote"
 alias gsa="git submodule add"
+alias ggpushskipci="ggpush --push-option=ci.skip"
 
 source ~/.zaliases.local
