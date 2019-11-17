@@ -131,3 +131,44 @@ alias gsa="git submodule add"
 alias ggpushskipci="ggpush --push-option=ci.skip"
 
 source ~/.zaliases.local
+
+
+# Safe move
+
+alias usr_bin_mv=`which mv`
+
+mvo(){
+  args=( $@ );
+  target=${args[$len-1]};
+
+  for f in ${args[@]:0:$len-1}; do
+    usr_bin_mv $f $target
+  done
+}
+
+
+mv(){
+  args=( $@ );
+  target=${args[$len-1]};
+
+  for f in ${args[@]:0:$len-1}; do
+    base=$(basename -- "$f");
+
+    fname="${base%.*}";
+    ext="${base##*.}";
+
+    if [[ -f "$target/${fname}.${ext}" ]]; then
+      i=1;
+      new_fname=$(printf "%s/%s_%02d.%s" $target ${fname} $i ${ext});
+      while [ -f $new_fname ]; do
+        i=$(($i+1));
+        new_fname=$(printf "%s/%s_%02d.%s" $target ${fname} $i ${ext});
+      done
+      echo "$f -> $new_fname"
+      usr_bin_mv $f $new_fname
+    else
+      echo "mv $f $target";
+    usr_bin_mv $f $target
+    fi
+  done
+}
