@@ -11,8 +11,9 @@ alias hobbes='cd /vol/hobbes/hobbesraid/saeed'
 
 # ETHZ
 eth() {
-  mkdir -p "~/development/${1}.remote"
-  sshfs sarpass@${1}.ethz.ch:/scratch/saeed ~/development/${1}.remote
+  mkdir -p $HOME/development
+  mkdir -p $HOME/development/${1}.remote
+  sshfs sarpass@${1}.ethz.ch:/scratch/saeed $HOME/development/${1}.remote
 }
 
 jupyter_remote() {
