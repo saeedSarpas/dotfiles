@@ -21,7 +21,7 @@
     lint_on_the_fly = false
 
     # Colorschem
-    colorscheme = "onedark"
+    colorscheme = "1989"
     colorscheme_bg = "dark"
 
     # Status line: https://spacevim.org/documentation/#statusline
@@ -137,7 +137,7 @@
   name = "colorscheme"
 
 [[custom_plugins]]
-  name = "joshdick/onedark.vim"
+  name = "flazz/vim-colorschemes"
   merged = 0
 
 [[layers]]
