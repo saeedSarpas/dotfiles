@@ -60,6 +60,7 @@ alias feh='feh -F. -d'
 alias fehz='feh -F. -d --auto-zoom'
 
 # screen
+scr() { screen -S $1 }
 alias sls='screen -ls'
 alias srd='screen -rd'
 

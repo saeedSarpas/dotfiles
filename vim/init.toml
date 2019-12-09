@@ -1,0 +1,236 @@
+# This is a basic configuration example for SpaceVim
+
+# All SpaceVim options are below [options] snippet
+[options]
+    # VersionControl: https://spacevim.org/layers/VersionControl/#key-bindings
+
+    # autocomplete: https://spacevim.org/layers/autocomplete/#key-bindings
+    autocomplete_method = "coc"
+    autocomplete_parens = true
+    auto_completion_return_key_behaviora = 'complete'
+    auto_completion_tab_key_behavior = 'nil'
+    auto_completion_delay = 500
+    auto_completion_complete_with_key_sequence = "nil"
+    auto_completion_complete_with_key_sequence_delay = 0.1
+    auto_completion_enable_snippets_in_popup = true
+
+    # checkers: https://spacevim.org/layers/checkers/#key-bindings
+    show_cursor_error = false
+    enable_neomake = true
+    enable_ale = false
+    lint_on_the_fly = false
+
+    # Colorschem
+    colorscheme = "onedark"
+    colorscheme_bg = "dark"
+
+    # Status line: https://spacevim.org/documentation/#statusline
+    statusline_separator = "fire"
+    statusline_inactive_separator = "bar"
+    buffer_index_type = 1
+    enable_statusline_mode = true
+    statusline_left_sections = [
+       'winnr',
+       'major mode',
+       'filename',
+       'fileformat',
+       'minor mode lighters',
+       'version control info',
+       'search status'
+    ]
+    statusline_right_sections = [
+       'cursorpos',
+       'percentage',
+       'input method',
+       'date',
+       'time'
+    ]
+
+    # Core
+    filemanager = "vimfiler"
+    filetree_show_hidden = true
+
+    # cscope: https://spacevim.org/layers/cscope/#key-bindings
+
+    # ctrlp: https://spacevim.org/layers/ctrlp/#key-bindings
+
+    # debug: https://spacevim.org/layers/debug/#key-bindings
+
+    # default: https://spacevim.org/layers/default/#key-mappings
+
+    # edit
+
+    # fzf: https://spacevim.org/layers/fzf/#key-bindings
+
+    # git: https://spacevim.org/layers/git/#key-bindings
+
+    # lang
+
+    # lang#c: https://spacevim.org/layers/lang/c/#key-bindings
+    enable_clang_syntax_highlight = true
+    clang_executable = "/usr/bin/clang"
+    [layer.clang_std]
+      c = "c11"
+      cpp = "c++1z"
+      objc = "c11"
+      objcpp = "c++1z"
+
+    # lang#clojure
+
+    # lang#go: https://spacevim.org/layers/lang/go/#key-bindings
+    # go get -u github.com/jstemmer/gotags
+
+    # lang#haskell
+
+    # lang#html: https://spacevim.org/layers/lang/html/#key-bindings
+    # npm install --global vscode-html-languageserver-bin
+
+    # lang#ipynb: https://spacevim.org/layers/lang/ipynb/#key-bindings
+    # pip install --user notedown
+
+    # lang#javascript: https://spacevim.org/layers/lang/javascript/#key-bindings
+
+    # lang#julia: https://spacevim.org/layers/lang/julia/#key-bindings
+
+    # lang#latex: https://spacevim.org/layers/lang/latex/#key-bindings
+
+    # lang#lisp
+
+    # lang#markdown: https://spacevim.org/layers/lang/markdown/#key-bindings
+    # npm -g install remark remark-cli remark-stringify remark-frontmatter wcwidth prettier
+
+    # lang#python: https://spacevim.org/layers/lang/python/#key-bindings
+    # pip install --user flake8 yapf autoflake isort coverage 
+
+    # lang#ruby: https://spacevim.org/layers/lang/ruby/#key-bindings
+    # gem install rubocop
+
+    # lang#sh: https://spacevim.org/layers/lang/sh/#key-bindings
+
+    # lang#vim: https://spacevim.org/layers/lang/vim/#key-bindings
+
+    # lang#shell: https://spacevim.org/layers/shell/#key-bindings
+
+    # Disable guicolors in basic mode, many terminal do not support 24bit
+    # true colors, the type of the value is boolean, true or false.
+    enable_guicolors = false
+    enable_debug = true
+    realtime_leader_guaid = true
+    windows_smartclose = ""
+    enable_vimfiler_welcome = true
+    guifont = 'Inconsolata\ 14'
+    enable_fileformat_icon = true
+    enable_statusline_display_mode = true
+    auto_disable_touchpad = false
+
+
+[[layers]]
+  name = "VersionControl"
+
+[[layers]]
+  name = "autocomplete"
+
+[[layers]]
+  name = "checkers"
+
+[[layers]]
+  name = "colorscheme"
+
+[[custom_plugins]]
+  name = "joshdick/onedark.vim"
+  merged = 0
+
+[[layers]]
+  name = "core#statusline"
+
+[[layers]]
+  name = 'core'
+  filetree_show_hidden = true
+
+[[layers]]
+  name = "cscope" # Make sure cscope is installed, brew instal cscope
+
+# [[layers]]
+#     name = "ctrlp"
+
+[[layers]]
+  name = "debug"
+
+[[layers]]
+  name = "default"
+
+[[layers]]
+  name = "edit"
+
+[[layers]]
+  name = "git"
+  git-plugin = 'fugitive'
+
+[[layers]]
+  name = "lang"
+
+[[layers]]
+  name = "lang#c"
+
+[[layers]]
+  name = "lang#clojure"
+
+[[layers]]
+  name = "lang#go"
+
+[[layers]]
+  name = "lang#haskell"
+
+[[layers]]
+  name = "lang#html"
+
+[[layers]]
+  name = "lang#ipynb"
+
+[[layers]]
+  name = "lang#javascript"
+  auto_fix = true
+  enable_flow_syntax = true
+
+[[layers]]
+  name = "lang#julia"
+
+[[layers]]
+  name = "lang#latex"
+
+[[layers]]
+  name = "lang#lisp"
+
+[[layers]]
+  name = "lang#markdown"
+
+[[layers]]
+  name = "lang#python"
+  format_on_save = 1
+  enable_typeinfo = true
+  python_file_head = [
+    '#!/usr/bin/env python',
+    '# -*- coding: utf-8 -*-',
+    '',
+    ''
+  ]
+
+[[layers]]
+  name = "lang#ruby"
+  repl_command = "irb"
+
+[[layers]]
+  name = "lang#sh"
+
+[[layers]]
+  name = "lang#vim"
+
+[[layers]]
+  name = "shell"
+  default_shell = 'terminal'
+  default_position = "top"
+  default_height = 30
+
+[[layers]]
+  name = "ui"
+  enable_sidebar = true

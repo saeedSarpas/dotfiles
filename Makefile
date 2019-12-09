@@ -42,7 +42,7 @@ zsh :
 vim :
 	@[ ! -d ${HOME}/.SpaceVim ] && curl -sLf https://spacevim.org/install.sh | bash || true
 	@mkdir -p $(HOME)/.SpaceVim.d
-	$(call copy, ./vim/init.vim, ${HOME}/.SpaceVim.d/init.vim)
+	$(call copy, ./vim/init.toml, ${HOME}/.SpaceVim.d/init.toml)
 	$(call check_prog, nvim-qt)
 
 
