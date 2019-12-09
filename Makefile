@@ -44,6 +44,7 @@ vim :
 	@mkdir -p $(HOME)/.SpaceVim.d
 	$(call copy, ./vim/init.toml, ${HOME}/.SpaceVim.d/init.toml)
 	$(call check_prog, nvim-qt)
+	@echo "Make sure to use Meslo font as Non-ASCII font in your terminal emulator"
 
 
 .PHONY : atom
