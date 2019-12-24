@@ -150,9 +150,6 @@
 [[layers]]
   name = "cscope" # Make sure cscope is installed, brew instal cscope
 
-# [[layers]]
-#     name = "ctrlp"
-
 [[layers]]
   name = "debug"
 
@@ -161,6 +158,9 @@
 
 [[layers]]
   name = "edit"
+
+[[layers]]
+    name = "fzf"
 
 [[layers]]
   name = "git"

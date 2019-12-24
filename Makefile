@@ -45,6 +45,7 @@ vim :
 	$(call copy, ./vim/init.toml, ${HOME}/.SpaceVim.d/init.toml)
 	$(call check_prog, nvim-qt)
 	@echo "Make sure to use Meslo font as Non-ASCII font in your terminal emulator"
+	@[ type rg >/dev/null 2>&1 ] || echo "export FZF_DEFAULT_COMMAND='rg --files --hidden'" >> ${HOME}/.zshenv.local && true;
 
 
 .PHONY : atom
@@ -85,7 +86,7 @@ i3-pre-build: pre-build gtk X11 termite fonts
 i3 : i3-pre-build
 	@cat ./i3/i3-bar.config >> ${HOME}/.config/i3/config
 	@echo "Please make sure that imagemagick is installed."
-	@[ command -v i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
+	@[ type i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
 	$(call check_prog, i3block)
 
 .PHONY : i3-kde
@@ -96,12 +97,12 @@ i3-kde : i3-pre-build
 	@chmod +x ${HOME}/.config/plasma-workspace/env/set_window_manager.sh
 	@cat ./i3/i3-kde.config >> ${HOME}/.config/i3/config
 	@echo "Please make sure that imagemagick is installed."
-	@[ command -v i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
+	@[ type i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
 
 .PHONY : i3-polybar
 i3-polybar : i3-pre-build polybar
 	@cat ./i3/i3-polybar.config >> $(HOME)/.config/i3/config
-	@[ command -v i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
+	@[ type i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
 
 
 .PHONY : polybar
