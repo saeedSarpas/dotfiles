@@ -41,11 +41,11 @@ zsh :
 .PHONY : vim
 vim :
 	@[ ! -d ${HOME}/.SpaceVim ] && curl -sLf https://spacevim.org/install.sh | bash || true
-	@mkdir -p $(HOME)/.SpaceVim.d
+	@mkdir -p $(HOME)/.SpaceVim.d $(HOME)/.SpaceVim.d/autoload
 	$(call copy, ./vim/init.toml, ${HOME}/.SpaceVim.d/init.toml)
-	$(call check_prog, nvim-qt)
+	$(call copy, ./vim/autoload/myspacevim.vim, ${HOME}/.SpaceVim.d/autoload/myspacevim.vim)
+	$(append_env "export FZF_DEFAULT_COMMAND='rg --files --hidden'" ${HOME}/.zshenv.local)
 	@echo "Make sure to use Meslo font as Non-ASCII font in your terminal emulator"
-	@[ type rg >/dev/null 2>&1 ] || echo "export FZF_DEFAULT_COMMAND='rg --files --hidden'" >> ${HOME}/.zshenv.local && true;
 
 
 .PHONY : atom
@@ -240,4 +240,13 @@ endef
 
 define apm_install
 	@$(foreach p,$1,$(call apm_install_packages $p))
+endef
+
+define append_env
+	@if grep -Fxq $(rg_export) $2 >/dev/null 2>&1; then \
+		echo "$2 already contains $1"; \
+	else \
+		echo "$1 > $2"; \
+		echo $1 > $2; \
+	fi
 endef

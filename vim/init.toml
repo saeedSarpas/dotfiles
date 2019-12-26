@@ -2,13 +2,17 @@
 
 # All SpaceVim options are below [options] snippet
 [options]
+    # MySpaceVim
+    bootstrap_before = "myspacevim#before"
+    bootstrap_after = "myspacevim#after"
+
     # VersionControl: https://spacevim.org/layers/VersionControl/#key-bindings
 
     # autocomplete: https://spacevim.org/layers/autocomplete/#key-bindings
     autocomplete_method = "coc"
     autocomplete_parens = true
-    auto_completion_return_key_behaviora = 'complete'
-    auto_completion_tab_key_behavior = 'nil'
+    auto_completion_return_key_behavior = 'complete'
+    auto_completion_tab_key_behavior = 'cycle'
     auto_completion_delay = 500
     auto_completion_complete_with_key_sequence = "nil"
     auto_completion_complete_with_key_sequence_delay = 0.1
@@ -46,9 +50,16 @@
        'time'
     ]
 
-    # Core
+    # core
     filemanager = "vimfiler"
     filetree_show_hidden = true
+    enable_vimfiler_welcome = true
+    enable_fileformat_icon = true
+    enable_statusline_display_mode = true
+    auto_disable_touchpad = false
+    enable_debug = true
+    realtime_leader_guaid = true
+    windows_smartclose = ""
 
     # cscope: https://spacevim.org/layers/cscope/#key-bindings
 
@@ -111,17 +122,14 @@
 
     # lang#shell: https://spacevim.org/layers/shell/#key-bindings
 
-    # Disable guicolors in basic mode, many terminal do not support 24bit
-    # true colors, the type of the value is boolean, true or false.
+    # roman/golden-ratio
+    loaded_golden_ratio = 0 # Disable golden-ratio by default
+
+    # MaxMEllon/vim-jsx-pretty
+
+    # GUI
     enable_guicolors = false
-    enable_debug = true
-    realtime_leader_guaid = true
-    windows_smartclose = ""
-    enable_vimfiler_welcome = true
     guifont = 'Inconsolata\ 14'
-    enable_fileformat_icon = true
-    enable_statusline_display_mode = true
-    auto_disable_touchpad = false
 
 
 [[layers]]
@@ -234,3 +242,7 @@
 [[layers]]
   name = "ui"
   enable_sidebar = true
+
+[[custom_plugins]]
+  name = "roman/golden-ratio"
+  merge = 0
