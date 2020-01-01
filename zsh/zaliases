@@ -174,3 +174,21 @@ mv(){
     fi
   done
 }
+
+# DNS
+dns(){
+  echo "- /etc/resolve.conf";
+  cat /etc/resolv.conf;
+
+  echo "- resolvectl status";
+  resolvectl status;
+
+  echo "- dig google.com";
+  dig google.com;
+
+  echo "- systemd-networkd status";
+  systemctl status systemd-networkd;
+
+  echo "- systemd-resolved status";
+  systemctl status systemd-resolved;
+}
