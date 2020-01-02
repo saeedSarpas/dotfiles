@@ -222,6 +222,12 @@ pre-build :
 	@mkdir -p ${HOME}/.fonts;
 
 
+.PHONY : mpv
+mpv :
+	mkdir -p ${HOME}/.config/mpv
+	$(call copy, ./mpv/input.conf, ${HOME}/.config/mpv/input.conf)
+
+
 define copy
 	$(foreach f, ${1}, $(shell cp ${f} ${2}))
 	@printf "Copied %s to %s\n" "${1}" ${2}
