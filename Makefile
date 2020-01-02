@@ -188,14 +188,14 @@ fonts : pre-build
 
 .PHONY : hidpi
 hidpi :
-	@echo "export QT_AUTO_SCREEN_SCALE_FACTOR=1" >> ~/.zshenv.local
-	@echo "export GDK_SCALE=2" >> ~/.zshenv.local
-	@echo "export GDK_DPI_SCALE=0.5" >> ~/.zshenv.local
-	@echo "export ELM_SCALE=1.5" >> ~/.zshenv.local
-	@touch ~/.config/chromium-flags.conf
-	@echo "--force-device-scale-factor=2" >> ~/.config/chromium-flags.conf
-	@echo "alias chromium='chromium --force-device-scale-factor=2'" >> ~/.zaliases.local
-	@echo "alias spotify='spotify --force-device-scale-factor=2'" >> ~/.zaliases.local
+	$(append_env "export QT_AUTO_SCREEN_SCALE_FACTOR=1" ${HOME}/.zshenv.local)
+	$(append_env "export GDK_SCALE=2" ${HOME}/.zshenv.local)
+	$(append_env "export GDK_DPI_SCALE=0.5" ${HOME}/.zshenv.local)
+	$(append_env "export ELM_SCALE=1.5" ${HOME}/.zshenv.local)
+	@touch ${HOME}/.config/chromium-flags.conf
+	$(append_env "--force-device-scale-factor=2" ${HOME}/.config/chromium-flags.conf)
+	$(append_env "alias chromium='chromium --force-device-scale-factor=2'" ${HOME}/.zaliases.local)
+	$(append_env "alias spotify='spotify --force-device-scale-factor=2'" ${HOME}/.zaliases.local)
 	# @sed -i 's/:size.*/:size 20/' ${HOME}/.spacemacs
 	@sed -i 's/96/192/' ${HOME}/.local/bin/rofi
 	@sed -i 's/96/192/' ${HOME}/.Xresources

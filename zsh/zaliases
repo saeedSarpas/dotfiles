@@ -89,6 +89,7 @@ alias syst='sudo systemctl status'
 # Yay
 alias ya='yay'
 alias yas='yay -S'
+alias yass='yay -Ss'
 alias update='yay -Syu'
 
 # Sound playback using pulseaudio
