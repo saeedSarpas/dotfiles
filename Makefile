@@ -228,6 +228,11 @@ mpv :
 	$(call copy, ./mpv/input.conf, ${HOME}/.config/mpv/input.conf)
 
 
+.PHONY : screen
+screen :
+	$(call copy, ./screen/screenrc, ${HOME}/.screenrc)
+
+
 define copy
 	$(foreach f, ${1}, $(shell cp ${f} ${2}))
 	@printf "Copied %s to %s\n" "${1}" ${2}
