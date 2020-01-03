@@ -22,3 +22,6 @@
 [submodule "illum"]
 	path = illum
 	url = https://github.com/jmesmon/illum.git
+[submodule "irssi-scripts"]
+	path = irssi-scripts
+	url = https://github.com/shabble/irssi-scripts.git

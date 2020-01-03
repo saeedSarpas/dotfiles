@@ -224,13 +224,24 @@ pre-build :
 
 .PHONY : mpv
 mpv :
-	mkdir -p ${HOME}/.config/mpv
+	@mkdir -p ${HOME}/.config/mpv
 	$(call copy, ./mpv/input.conf, ${HOME}/.config/mpv/input.conf)
 
 
 .PHONY : screen
 screen :
 	$(call copy, ./screen/screenrc, ${HOME}/.screenrc)
+
+
+.PHONY : irssi
+irssi :
+	@mkdir -p ${HOME}/.irssi
+	$(call copy, ./irssi/config, ${HOME}/.irssi/config)
+	@mkdir -p ${HOME}/.irssi/scripts
+	@mkdir -p ${HOME}/.irssi/scripts/autorun
+	@rm -rf ${HOME}/.irssi/scripts/autorun/uberprompt.pl ${HOME}/.irssi/scripts/autorun/vim_mode.pl
+	@ln -s "$$(pwd)/irssi-scripts/vim-mode/irssi/scripts/autorun/uberprompt.pl" ${HOME}/.irssi/scripts/autorun
+	@ln -s "$$(pwd)/irssi-scripts/vim-mode/irssi/scripts/autorun/vim_mode.pl" ${HOME}/.irssi/scripts/autorun
 
 
 define copy
