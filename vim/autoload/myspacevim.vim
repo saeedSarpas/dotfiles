@@ -1,4 +1,12 @@
 function! myspacevim#before() abort
+  let g:vimfiler_ignore_pattern = [
+    \ '^\.',
+    \ '^\.git$',
+    \ '^\.DS_Store$',
+    \ '^__pycache__$',
+    \ '\.pyc$'
+  \ ]
+
   let g:loaded_golden_ratio = 1
   nnoremap <space>gr :GoldenRatioResize<CR>
   nnoremap <space>gt :GoldenRatioToggle<CR>
