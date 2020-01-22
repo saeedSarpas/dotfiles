@@ -7,6 +7,8 @@ function! myspacevim#before() abort
     \ '\.pyc$'
   \ ]
 
+  let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
   let g:loaded_golden_ratio = 1
   nnoremap <space>gr :GoldenRatioResize<CR>
   nnoremap <space>gt :GoldenRatioToggle<CR>

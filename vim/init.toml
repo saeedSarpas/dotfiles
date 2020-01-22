@@ -246,3 +246,8 @@
 [[custom_plugins]]
   name = "roman/golden-ratio"
   merge = 0
+
+# install firenvim with: nvim --headless "+call firenvim#install(0) | q"
+[[custom_plugins]]
+  name = "glacambre/firenvim"
+  merged = 0
