@@ -198,3 +198,30 @@ dns(){
   echo "- systemd-resolved status";
   systemctl status systemd-resolved;
 }
+
+# Rhyme/cmake
+cwatch() {
+  cmake .. && make rhyme_$1_watch
+}
+
+cbuild() {
+  if [ $# -eq 0 ]
+    then
+      cmake -DBUILD_DESC:STRING="$1" .. && make && ctest --timeout 10 --output-on-failure
+  else
+      cmake -DBUILD_DESC:STRING="$1" .. && make VERBOSE=$2 && ctest --timeout 10 --output-on-failure
+  fi
+}
+
+cdebug() {
+  if [ $# -eq 0 ]
+    then
+      cmake -DBUILD_DESC:STRING="$1" -DCMAKE_BUILD_TYPE=Debug .. && make && ctest --timeout 10 --output-on-failure
+  else
+      cmake -DBUILD_DESC:STRING="$1" -DCMAKE_BUILD_TYPE=Debug .. && make VERBOSE=$2 && ctest --timeout 10 --output-on-failure
+  fi
+}
+
+# alaxy-data
+alias gal='cd /net/galaxy-data/export/galaxydata/saeed'
+alias nobkp='cd /net/galaxy-data/export/galaxy/shared/MUSE/noBackup/user/saeed'
