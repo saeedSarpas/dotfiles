@@ -12,20 +12,22 @@ alias hobbes='cd /vol/hobbes/hobbesraid/saeed'
 # ETHZ
 eth() {
   mkdir -p $HOME/development
-  mkdir -p $HOME/development/${1}.remote
-  sshfs sarpass@${1}.ethz.ch:/scratch/saeed $HOME/development/${1}.remote
+    mkdir -p $HOME/development/${1}.remote
+    sshfs sarpass@${1}.ethz.ch:/scratch/saeed $HOME/development/${1}.remote
 }
+
 
 jupyter_remote() {
   if [[ -n "$1" ]]; then host=$1; else host=theia; fi
-  if [[ -n "$2" ]]; then port=$2; else port=8888; fi
+    if [[ -n "$2" ]]; then port=$2; else port=8888; fi
 
-  ssh -N -f -L localhost:${port}:localhost:${port} sarpass@${host}
+      ssh -N -f -L localhost:${port}:localhost:${port} sarpass@${host}
 }
 
 alias theia='ssh -XY sarpass@theia.ethz.ch'
 alias eos='ssh -XY sarpass@eos.ethz.ch'
 alias hyperion='ssh -XY sarpass@hyperion.ethz.ch'
+alias selene='ssh -XY sarpass@selene.ethz.ch'
 alias phoebe='ssh -XY sarpass@phoebe.ethz.ch'
 alias phys='ssh -XY sarpass@login.phys.ethz.ch'
 alias ethvpn='sudo openconnect sslvpn.ethz.ch -u sarpass@student-net.ethz.ch --authgroup=student-net'
@@ -148,7 +150,7 @@ mvo(){
 
   for f in ${args[@]:0:$len-1}; do
     usr_bin_mv $f $target
-  done
+      done
 }
 
 
@@ -159,23 +161,23 @@ mv(){
   for f in ${args[@]:0:$len-1}; do
     base=$(basename -- "$f");
 
-    fname="${base%.*}";
-    ext="${base##*.}";
+  fname="${base%.*}";
+  ext="${base##*.}";
 
-    if [[ -f "$target/${fname}.${ext}" ]]; then
-      i=1;
-      new_fname=$(printf "%s/%s_%02d.%s" $target ${fname} $i ${ext});
-      while [ -f $new_fname ]; do
-        i=$(($i+1));
-        new_fname=$(printf "%s/%s_%02d.%s" $target ${fname} $i ${ext});
-      done
-      echo "$f -> $new_fname"
-      usr_bin_mv $f $new_fname
-    else
-      echo "mv $f $target";
-    usr_bin_mv $f $target
-    fi
+  if [[ -f "$target/${fname}.${ext}" ]]; then
+    i=1;
+  new_fname=$(printf "%s/%s_%02d.%s" $target ${fname} $i ${ext});
+  while [ -f $new_fname ]; do
+    i=$(($i+1));
+  new_fname=$(printf "%s/%s_%02d.%s" $target ${fname} $i ${ext});
   done
+    echo "$f -> $new_fname"
+    usr_bin_mv $f $new_fname
+  else
+    echo "mv $f $target";
+  usr_bin_mv $f $target
+    fi
+    done
 }
 
 # DNS
@@ -198,3 +200,30 @@ dns(){
   echo "- systemd-resolved status";
   systemctl status systemd-resolved;
 }
+
+# Rhyme/cmake
+cwatch() {
+  cmake .. && make rhyme_$1_watch
+}
+
+cbuild() {
+  if [ $# -eq 0 ]
+    then
+      cmake -DBUILD_DESC:STRING="$1" .. && make && ctest --timeout 10 --output-on-failure
+  else
+      cmake -DBUILD_DESC:STRING="$1" .. && make VERBOSE=$2 && ctest --timeout 10 --output-on-failure
+  fi
+}
+
+cdebug() {
+  if [ $# -eq 0 ]
+    then
+      cmake -DBUILD_DESC:STRING="$1" -DCMAKE_BUILD_TYPE=Debug .. && make && ctest --timeout 10 --output-on-failure
+  else
+      cmake -DBUILD_DESC:STRING="$1" -DCMAKE_BUILD_TYPE=Debug .. && make VERBOSE=$2 && ctest --timeout 10 --output-on-failure
+  fi
+}
+
+# alaxy-data
+alias gal='cd /net/galaxy-data/export/galaxydata/saeed'
+alias nobkp='cd /net/galaxy-data/export/galaxy/shared/MUSE/noBackup/user/saeed'
