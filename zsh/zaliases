@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 # AIfA
 alias aifa-gates='ssh -p1234 -XY saeed@gate4.astro.uni-bonn.de'
 aifa-science() {
@@ -222,6 +225,17 @@ cdebug() {
   else
       cmake -DBUILD_DESC:STRING="$1" -DCMAKE_BUILD_TYPE=Debug .. && make VERBOSE=$2 && ctest --timeout 10 --output-on-failure
   fi
+}
+
+rstr() {
+  if [[ -n "$1" ]]; then local old="$1"; else echo "usage: rstr old_string new_strin [filter]"; return; fi
+  if [[ -n "$2" ]]; then local new="$2"; else echo "usage: rstr old_string new_strin [filter]"; return; fi
+  if [[ -n "$3" ]]; then local filter="$3"; else local filter="."; fi
+
+  for f in `ls | grep -i ${filter}`; do
+    ff=${f//$old/$new};
+    mv $f $ff;
+  done
 }
 
 # alaxy-data
