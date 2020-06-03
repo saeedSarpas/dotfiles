@@ -40,12 +40,13 @@ zsh :
 
 .PHONY : vim
 vim :
-	@[ ! -d ${HOME}/.SpaceVim ] && curl -sLf https://spacevim.org/install.sh | bash || true
-	@mkdir -p $(HOME)/.SpaceVim.d $(HOME)/.SpaceVim.d/autoload
-	$(call copy, ./vim/init.toml, ${HOME}/.SpaceVim.d/init.toml)
-	$(call copy, ./vim/autoload/myspacevim.vim, ${HOME}/.SpaceVim.d/autoload/myspacevim.vim)
-	$(append_env "export FZF_DEFAULT_COMMAND='rg --files --hidden'" ${HOME}/.zshenv.local)
-	@echo "Make sure to use Meslo font as Non-ASCII font in your terminal emulator"
+	mkdir -p ${HOME}/.config
+	@if [ -d ${HOME}/.config/nvim ] \
+		then \
+		cd ${HOME}/.config/nvim && git pull origin $(git_current_branch) \
+		else
+	cd ${HOME}/.config && git clone https://gitlab.com/saeedSarpas/init.vim.git \
+		fi
 
 
 .PHONY : atom
@@ -173,8 +174,8 @@ bin : pre-build
 
 
 .PHONY : termite
-TERMITE_THEME := base16-tomorrow-night.config
-termite : pre-build
+	TERMITE_THEME := base16-tomorrow-night.config
+	termite : pre-build
 	$(call copy, ./termite/termite.config, ${HOME}/.config/termite/config)
 	@echo "Setting termite theme: ${TERMITE_THEME}"
 	@cat ./base16-termite/themes/${TERMITE_THEME} >> ${HOME}/.config/termite/config
@@ -245,30 +246,30 @@ irssi :
 
 
 define copy
-	$(foreach f, ${1}, $(shell cp ${f} ${2}))
-	@printf "Copied %s to %s\n" "${1}" ${2}
+$(foreach f, ${1}, $(shell cp ${f} ${2}))
+@printf "Copied %s to %s\n" "${1}" ${2}
 endef
 
 
 define check_prog
-	$(foreach p, ${1}, $(shell command -v ${p} >/dev/null 2>&1 \
-		|| echo >&2 "Please consider installing ${p}.";))
+$(foreach p, ${1}, $(shell command -v ${p} >/dev/null 2>&1 \
+	|| echo >&2 "Please consider installing ${p}.";))
 endef
 
 
 define apm_install_packages
-	@[ ! -d ${HOME}/.oh-my-zsh ] && apm install $1 || true
+@[ ! -d ${HOME}/.oh-my-zsh ] && apm install $1 || true
 endef
 
 define apm_install
-	@$(foreach p,$1,$(call apm_install_packages $p))
+@$(foreach p,$1,$(call apm_install_packages $p))
 endef
 
 define append_env
-	@if grep -Fxq $(rg_export) $2 >/dev/null 2>&1; then \
-		echo "$2 already contains $1"; \
+@if grep -Fxq $(rg_export) $2 >/dev/null 2>&1; then \
+	echo "$2 already contains $1"; \
 	else \
-		echo "$1 > $2"; \
-		echo $1 > $2; \
+	echo "$1 > $2"; \
+	echo $1 > $2; \
 	fi
 endef
