@@ -11,42 +11,42 @@ Xft.antialias: true
 
 ! URxvt settings
 
-URxvt.depth: 32
-URxvt.geometry: 90x30
-URxvt.transparent: false
-URxvt.fading: 0
-URxvt.visualBell: true
-URxvt.loginShell: true
-URxvt.saveLines: 50
-URxvt.internalBorder: 3
-URxvt.lineSpace: 0
-URxvt*borderless: true
-URxvt*jumpScroll: true
-URxvt*scrollBar: false
-URxvt*scrollTryOutput: false
-URxvt*scrollTtyKeypress: true
+! URxvt.depth: 32
+! URxvt.geometry: 90x30
+! URxvt.transparent: false
+! URxvt.fading: 0
+! URxvt.visualBell: true
+! URxvt.loginShell: true
+! URxvt.saveLines: 50
+! URxvt.internalBorder: 3
+! URxvt.lineSpace: 0
+! URxvt*borderless: true
+! URxvt*jumpScroll: true
+! URxvt*scrollBar: false
+! URxvt*scrollTryOutput: false
+! URxvt*scrollTtyKeypress: true
 
-URxvt.allow_bold: false
+! URxvt.allow_bold: false
 /* URxvt.font: -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1 */
-URxvt*font: xft:Monospace:pixelsize=14
-URxvt*boldFont: xft:Monospace:pixelsize=14
+! URxvt*font: xft:Monospace:pixelsize=14
+! URxvt*boldFont: xft:Monospace:pixelsize=14
 
-URxvt*letterSpace: -1
+! URxvt*letterSpace: -1
 
-URxvt.scrollStyle: rxvt
-URxvt.scrollBar: false
+! URxvt.scrollStyle: rxvt
+! URxvt.scrollBar: false
 
-URxvt.perl-ext-common: default,matcher
-URxvt.matcher.button: 1
-URxvt.urlLauncher: chromium
+! URxvt.perl-ext-common: default,matcher
+! URxvt.matcher.button: 1
+! URxvt.urlLauncher: chromium
 
-URxvt.cursorBlink: true
-URxvt.cursorColor: cursor_color
-URxvt.cursorUnderline: false
+! URxvt.cursorBlink: true
+! URxvt.cursorColor: cursor_color
+! URxvt.cursorUnderline: false
 
-URxvt.pointerBlank: true
+! URxvt.pointerBlank: true
 
-URxvt*backgroundPixmap: ~/.config/i3/terminal-solarized-bg.png;style=tiled
+! URxvt*backgroundPixmap: ~/.config/i3/terminal-solarized-bg.png;style=tiled
 
 
 ! Theme

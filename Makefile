@@ -10,8 +10,7 @@ help :
 	@echo " - vim";
 	@echo " - atom";
 	@echo " - sway (including bin, gtk, termite, fonts)";
-	@echo " - i3wm (including gtk, termite, fonts and X11)";
-	@echo " - polybar (including i3wm)"
+	@echo " - polybar"
 	@echo " - spacemacs";
 	@echo " - gtk";
 	@echo " - X11";
@@ -68,44 +67,6 @@ atom :
 		git-time-machine )
 
 
-.PHONY : i3-pre-build
-i3-pre-build: pre-build gtk X11 termite fonts
-	@rm -rf ${HOME}/.i3;
-	@rm -f ${HOME}/.config/i3/config;
-	@touch ${HOME}/.config/i3/config
-	@cat ./i3/i3-main.config > ${HOME}/.config/i3/config
-	@cat ./i3/i3-colors.config >> ${HOME}/.config/i3/config
-	$(call copy, ./imgs/desktop-bg.jpg, ${HOME}/.config/i3/)
-	$(call copy, ./imgs/terminal-bg.png, ${HOME}/.config/i3/)
-	$(call copy, ./imgs/terminal-solarized-bg.png, ${HOME}/.config/i3/)
-	$(call copy, ./i3/i3lock.sh, ${HOME}/.i3lock.sh)
-	$(call check_prog, arandr feh pactl playerctl termite urxvt terminator \
-		lxappearance rofi compton scrot i3-msg)
-
-
-.PHONY : i3
-i3 : i3-pre-build
-	@cat ./i3/i3-bar.config >> ${HOME}/.config/i3/config
-	@echo "Please make sure that imagemagick is installed."
-	@[ type i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
-	$(call check_prog, i3block)
-
-.PHONY : i3-kde
-i3-kde : i3-pre-build
-	@mkdir -p ${HOME}/.config/plasma-workspace
-	@mkdir -p ${HOME}/.config/plasma-workspace/env
-	$(call copy, ./i3/set_window_manager.sh, ${HOME}/.config/plasma-workspace/env/)
-	@chmod +x ${HOME}/.config/plasma-workspace/env/set_window_manager.sh
-	@cat ./i3/i3-kde.config >> ${HOME}/.config/i3/config
-	@echo "Please make sure that imagemagick is installed."
-	@[ type i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
-
-.PHONY : i3-polybar
-i3-polybar : i3-pre-build polybar
-	@cat ./i3/i3-polybar.config >> $(HOME)/.config/i3/config
-	@[ type i3-msg >/dev/null 2>&1 ] || i3-msg reload && true;
-
-
 .PHONY : polybar
 polybar : pre-build
 	$(call copy, ./polybar/polybar.config, ${HOME}/.config/polybar/config)
@@ -148,7 +109,7 @@ grub-theme:
 	@echo "Installing grub theme at: ${GRUB_THEMES_DIR}/${ESLIMIT_THEME}"
 	@mkdir -p ${GRUB_THEMES_DIR}
 	@mkdir -p ${GRUB_THEMES_DIR}/${ESLIMIT_THEME}
-	@cp -r dotfiles/grub-eslimi-theme/{*.png,icons,theme.txt} ${GRUB_THEMES_DIR}/${ESLIMIT_THEME}
+	@cp -r ./grub-eslimi-theme/{*.png,icons,theme.txt} ${GRUB_THEMES_DIR}/${ESLIMIT_THEME}
 	@sed -i "$(grep -n "GRUB_THEME" /etc/default/grub | cut -d ":" -f1)s/.*/GRUB_THEME=${GRUB_THEMES_DIR}/${ESLIMIT_THEME}/theme.txt/" /etc/default/grub
 	@grub-mkconfig -o ${GRUB_DIR}/grub.cfg
 
@@ -211,7 +172,6 @@ hidpi :
 .PHONY : pre-build
 pre-build :
 	@mkdir -p ${HOME}/.config;
-	@mkdir -p ${HOME}/.config/i3;
 	@mkdir -p ${HOME}/.config/sway;
 	@mkdir -p ${HOME}/.config/polybar;
 	@mkdir -p ${HOME}/.config/termite;
