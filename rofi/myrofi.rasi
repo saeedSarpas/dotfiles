@@ -1,0 +1,18 @@
+configuration {
+modi: "window,run,ssh";
+width: 100;
+lines: 8;
+columns: 1;
+font: "Yosemite San Francisco 12";
+bw: 0;
+location: 0;
+padding: 1500;
+         fixed-num-lines: true;
+         show-icons: true;
+         ssh-client: "ssh";
+eh: 1.5;
+    separator-style: "none";
+    hide-scrollbar: true;
+    fake-transparency: true;
+    max-history-size: 250;
+    display-drun: "cmd";

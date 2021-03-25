@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/bin/rofi -show drun -theme myrofi

@@ -5,10 +5,6 @@ source ${i3dir}/../helpers/logging.sh;
 source ${i3dir}/../helpers/mycommands.sh;
 
 i3_pre_setup() {
-  safe_clean "${HOME}/.local/bin/rofi"
-  safe_mkdir "${HOME}/.local/bin"
-  myCp "${i3dir}/../bin/rofi" "${HOME}/.local/bin/rofi"
-
   safe_clean "${HOME}/.i3";
   safe_mkdir "${HOME}/.config/i3"
   safe_clean "${HOME}/.config/i3/config";
