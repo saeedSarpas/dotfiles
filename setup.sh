@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 source ./i3/setup_i3.sh
+source ./neovim/setup_neovim.sh
 source ./picom/setup_picom.sh
 source ./rofi/setup_rofi.sh
 source ./termite/setup_termite.sh
@@ -12,6 +13,7 @@ main() {
     echo ""
     echo "Please use one of the following actions:"
     echo "    i: i3"
+    echo "    n: neovim"
     echo "    p: picom"
     echo "    r: rofi"
     echo "    t: termite"
@@ -23,6 +25,7 @@ main() {
     read -p 'Action? [i,p,r,t,v,z,q] ' action
     case $action in
       [Ii]) setup_i3_main;;
+      [Nn]) setup_neovim_main;;
       [Pp]) setup_picom_main;;
       [Rr]) setup_rofi_main;;
       [Tt]) setup_termite_main;;
