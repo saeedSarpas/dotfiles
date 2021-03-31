@@ -1,1 +1,5 @@
 export TERM=screen
+
+# Enable mouse scrolling and scroll bar history scrolling
+termcapinfo xterm* ti@:te@
+termcapinfo gnome* ti@:te@

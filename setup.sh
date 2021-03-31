@@ -2,6 +2,7 @@
 source ./i3/setup_i3.sh
 source ./neovim/setup_neovim.sh
 source ./picom/setup_picom.sh
+source ./polybar/setup_polybar.sh
 source ./rofi/setup_rofi.sh
 source ./termite/setup_termite.sh
 source ./vim/setup_vim.sh
@@ -12,6 +13,7 @@ main() {
     echo "Saeed's setup script!"
     echo ""
     echo "Please use one of the following actions:"
+    echo "    b: polybar"
     echo "    i: i3"
     echo "    n: neovim"
     echo "    p: picom"
@@ -22,8 +24,9 @@ main() {
     echo "    q: quit"
     echo ""
 
-    read -p 'Action? [i,p,r,t,v,z,q] ' action
+    read -p 'Action? [b,i,p,r,t,v,z,q] ' action
     case $action in
+      [Bb]) setup_polybar_main;;
       [Ii]) setup_i3_main;;
       [Nn]) setup_neovim_main;;
       [Pp]) setup_picom_main;;

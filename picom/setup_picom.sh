@@ -17,7 +17,7 @@ setup_picom_main() {
   section 'picom';
   picom_setup;
 
-  log "restarting picom";
+  log "Restarting picom...";
   killall picom 2>/dev/null;
   killall compton 2>/dev/null;
   picom --config ${HOME}/.config/picom/picom.config 2>/dev/null &
