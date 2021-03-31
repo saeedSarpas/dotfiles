@@ -7,7 +7,6 @@ DEV_DIR := ${HOME}/development
 help :
 	@echo "Targets:";
 	@echo " - vim";
-	@echo " - atom";
 	@echo " - sway (including bin, gtk, termite, fonts)";
 	@echo " - polybar"
 	@echo " - spacemacs";
@@ -20,37 +19,7 @@ help :
 
 
 .PHONY : all
-all : vim sway bin spacemacs
-
-
-.PHONY : vim
-vim :
-	mkdir -p ${HOME}/.config
-	@if [ -d ${HOME}/.config/nvim ] \
-		then \
-		cd ${HOME}/.config/nvim && git pull origin $(git_current_branch) \
-		else
-	cd ${HOME}/.config && git clone https://gitlab.com/saeedSarpas/init.vim.git \
-		fi
-
-
-.PHONY : atom
-atom :
-	@[ ! -d ${HOME}/.atom ] && echo "You should install atom first" || true
-	$(call copy, ./atom/keymap.cson, ${HOME}/.atom)
-	$(call copy, ./atom/snippets.cson, ${HOME}/.atom)
-	$(call copy, ./atom/styles.less, ${HOME}/.atom)
-	$(call apm_install, \
-		vim-mode-plus \
-		minimap \
-		file-icons \
-		language-fortran ide-fortran \
-		linter-ui-default intentions busy-signal linter-gfortran \
-		atom-dark-fusion-syntax nucleus-dark-ui \
-		language-latex \
-		language-cmake \
-		symbols-tree-view \
-		git-time-machine )
+all : sway bin spacemacs
 
 
 .PHONY : polybar
