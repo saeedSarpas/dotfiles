@@ -30,7 +30,7 @@ main() {
     echo "    q: quit"
     echo ""
 
-    read -p 'Action? [b,i,p,r,t,v,x,z,q] ' action
+    read -p 'Action? [b,g,i,n,p,r,t,u,v,x,z,q] ' action
     case $action in
       [Bb]) setup_polybar_main;;
       [Ii]) setup_i3_main;;
