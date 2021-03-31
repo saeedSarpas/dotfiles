@@ -21,4 +21,5 @@ setup_zsh_main() {
   zsh_setup;
 
   log "restarting zsh";
+  exec zsh -l;
 }

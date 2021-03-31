@@ -19,6 +19,13 @@ myCp() {
   cp $1 $2;
 }
 
+myForceRm() {
+  if [ ! -n "$1" ]; then log "myForceRm needs exactly one argument"; return; fi
+
+  log "force delete $1";
+  rm -rf $1;
+}
+
 myRm() {
   if [ ! -n "$1" ]; then log "myRm needs exactly one argument"; return; fi
 

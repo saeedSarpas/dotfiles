@@ -36,5 +36,5 @@ setup_termite_main() {
   done
 
   log "Restarting termite...";
-  killall -USR1 termite 2>/dev/null;
+  killall -USR1 termite 2>&1 | log_stdout;
 }
