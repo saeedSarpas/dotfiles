@@ -12,7 +12,7 @@ picom_setup() {
 
 
 setup_picom_main() {
-  # TODO: check if picom-jonaburg-git is installed
+  # TODO: check if picom is installed
 
   section 'picom';
   picom_setup;

@@ -6,7 +6,6 @@ DEV_DIR := ${HOME}/development
 .PHONY : help
 help :
 	@echo "Targets:";
-	@echo " - zsh";
 	@echo " - vim";
 	@echo " - atom";
 	@echo " - sway (including bin, gtk, termite, fonts)";
@@ -21,20 +20,7 @@ help :
 
 
 .PHONY : all
-all : zsh vim sway bin spacemacs
-
-
-.PHONY : zsh
-zsh :
-	@[ ! -d ${HOME}/.oh-my-zsh ] \
-		&& sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" || true
-	$(call copy, ./zsh/zshrc, ${HOME}/.zshrc)
-	@touch ${HOME}/.zshrc.local
-	$(call copy, ./zsh/zaliases, ${HOME}/.zaliases)
-	@touch ${HOME}/.zaliases.local
-	$(call copy, ./zsh/zshenv, ${HOME}/.zshenv)
-	@touch ${HOME}/.zshenv.local
-	@source ${HOME}/.zshrc
+all : vim sway bin spacemacs
 
 
 .PHONY : vim
