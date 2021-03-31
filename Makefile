@@ -6,53 +6,11 @@ DEV_DIR := ${HOME}/development
 .PHONY : help
 help :
 	@echo "Targets:";
-	@echo " - vim";
-	@echo " - sway (including bin, gtk, termite, fonts)";
-	@echo " - polybar"
-	@echo " - spacemacs";
 	@echo " - gtk";
 	@echo " - X11";
-	@echo " - bin";
 	@echo " - termite";
 	@echo " - fonts";
 	@echo " - hidpi (including X11, zsh, gtk)"
-
-
-.PHONY : all
-all : sway bin spacemacs
-
-
-.PHONY : polybar
-polybar : pre-build
-	$(call copy, ./polybar/polybar.config, ${HOME}/.config/polybar/config)
-	$(call copy, ./polybar/polybar-launch.sh, $(HOME)/.config/polybar/launch.sh)
-	@chmod +x $(HOME)/.config/polybar/launch.sh
-	$(call check_prog, mopidy)
-	@echo "Please consider installing illum package for brighness control"
-
-
-.PHONY : sway
-sway : pre-build bin gtk termite fonts
-	$(call copy, ./sway/sway.config, ${HOME}/.config/sway/config)
-	$(call copy, ./imgs/Eslimi_3840x2160.jpg, ${HOME}/.config/sway/)
-	$(call check_prog, feh termite rofi)
-	@echo "Please make sure that imagemagick is installed."
-
-
-.PHONY : proton
-proton : pre-build
-	$(call check_prog, lein apm)
-	@[ ! -d ${DEV_DIR}/proton ] \
-		&& git clone git@github.com:dvcrn/proton.git ${DEV_DIR}/proton || true
-	@cd ${DEV_DIR}/proton && lein run -m build/release
-	@cd ${DEV_DIR}/proton/plugin && apm install && apm link
-	$(call copy, ./proton/proton.edn, ${HOME}/.proton)
-
-
-
-.PHONY : spacemacs
-spacemacs :
-	$(call copy, ./spacemacs/spacemacs.config, ${HOME}/.spacemacs)
 
 
 # Needs root access
@@ -84,11 +42,6 @@ X11 : pre-build
 	@echo "Please consider copying ./X11/70-synaptics.conf to /etc/X11/xorg.conf.d/"
 
 
-.PHONY : bin
-bin : pre-build
-	$(call copy, ./bin/rofi ./bin/sway, ${HOME}/.local/bin)
-
-
 .PHONY : termite
 	TERMITE_THEME := base16-tomorrow-night.config
 	termite : pre-build
@@ -113,8 +66,6 @@ hidpi :
 	$(append_env "--force-device-scale-factor=2" ${HOME}/.config/chromium-flags.conf)
 	$(append_env "alias chromium='chromium --force-device-scale-factor=2'" ${HOME}/.zaliases.local)
 	$(append_env "alias spotify='spotify --force-device-scale-factor=2'" ${HOME}/.zaliases.local)
-	# @sed -i 's/:size.*/:size 20/' ${HOME}/.spacemacs
-	@sed -i 's/96/192/' ${HOME}/.local/bin/rofi
 	@sed -i 's/96/192/' ${HOME}/.Xresources
 	$(call copy, ./bin/spotify, ${HOME}/.local/bin)
 	@echo "[GTK +2] Use oomox-git to generate a theme"
@@ -128,13 +79,11 @@ hidpi :
 pre-build :
 	@mkdir -p ${HOME}/.config;
 	@mkdir -p ${HOME}/.config/sway;
-	@mkdir -p ${HOME}/.config/polybar;
 	@mkdir -p ${HOME}/.config/termite;
 	@mkdir -p ${HOME}/.config/gtk-3.0;
 	@mkdir -p ${HOME}/.Xresources.d;
 	@mkdir -p ${HOME}/.Xresources.d/themes;
 	@mkdir -p ${HOME}/.local;
-	@mkdir -p ${HOME}/.local/bin;
 	@mkdir -p ${HOME}/.fonts;
 
 
