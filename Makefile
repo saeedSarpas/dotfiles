@@ -6,28 +6,10 @@ DEV_DIR := ${HOME}/development
 .PHONY : help
 help :
 	@echo "Targets:";
-	@echo " - X11";
-	@echo " - termite";
-	@echo " - fonts";
-	@echo " - hidpi (including X11, zsh)"
-
-
-# Needs root access
-GRUB_DIR := /boot/grub
-GRUB_THEMES_DIR := ${GRUB_DIR}/themes
-ESLIMI_THEME := grub-eslimi-theme
-.PHONY : grub-theme
-grub-theme:
-	@echo "Installing grub theme at: ${GRUB_THEMES_DIR}/${ESLIMIT_THEME}"
-	@mkdir -p ${GRUB_THEMES_DIR}
-	@mkdir -p ${GRUB_THEMES_DIR}/${ESLIMIT_THEME}
-	@cp -r ./grub-eslimi-theme/{*.png,icons,theme.txt} ${GRUB_THEMES_DIR}/${ESLIMIT_THEME}
-	@sed -i "$(grep -n "GRUB_THEME" /etc/default/grub | cut -d ":" -f1)s/.*/GRUB_THEME=${GRUB_THEMES_DIR}/${ESLIMIT_THEME}/theme.txt/" /etc/default/grub
-	@grub-mkconfig -o ${GRUB_DIR}/grub.cfg
-
-
-@cat ./base16-termite/themes/${TERMITE_THEME} >> ${HOME}/.config/termite/config
-@sed -i 's/^background.*/background\ =\ rgba\(29\,31\,33\,0.8\)/' ${HOME}/.config/termite/config
+	@echo " - hidpi"
+	@echo " - mpv"
+	@echo " - irssi"
+	@echo " - screen"
 
 
 .PHONY : hidpi
@@ -47,17 +29,6 @@ hidpi :
 	@echo "[Thunderbird] set parameter layout.css.devPixelsPerPx to 2"
 	@echo "[Gimp] Use gimp-hidpi"
 	# TODO: Side display section of HiDPI article
-
-
-.PHONY : pre-build
-pre-build :
-	@mkdir -p ${HOME}/.config;
-	@mkdir -p ${HOME}/.config/sway;
-	@mkdir -p ${HOME}/.config/termite;
-	@mkdir -p ${HOME}/.Xresources.d;
-	@mkdir -p ${HOME}/.Xresources.d/themes;
-	@mkdir -p ${HOME}/.local;
-	@mkdir -p ${HOME}/.fonts;
 
 
 .PHONY : mpv

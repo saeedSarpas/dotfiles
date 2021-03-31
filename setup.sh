@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 source ./gtk/setup_gtk.sh
 source ./i3/setup_i3.sh
+source ./grub/setup_grub.sh
 source ./neovim/setup_neovim.sh
 source ./picom/setup_picom.sh
 source ./polybar/setup_polybar.sh
@@ -22,6 +23,7 @@ main() {
     echo "    p: picom"
     echo "    r: rofi"
     echo "    t: termite"
+    echo "    u: grub"
     echo "    v: vim"
     echo "    x: X11"
     echo "    z: zsh"
@@ -37,6 +39,7 @@ main() {
       [Pp]) setup_picom_main;;
       [Rr]) setup_rofi_main;;
       [Tt]) setup_termite_main;;
+      [Uu]) setup_grub_main;;
       [Vv]) setup_vim_main;;
       [Xx]) setup_x11_main;;
       [Zz]) setup_zsh_main;;
