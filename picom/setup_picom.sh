@@ -20,5 +20,5 @@ setup_picom_main() {
   log "Restarting picom...";
   killall picom 2>&1 | log_stdout;
   killall compton 2>&1 | log_stdout;
-  picom --config ${HOME}/.config/picom/picom.config 2>&1 | log_stdout;
+  picom --config ${HOME}/.config/picom/picom.config &2>&1 | log_stdout;
 }

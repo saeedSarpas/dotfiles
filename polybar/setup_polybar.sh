@@ -24,7 +24,6 @@ setup_polybar_main() {
   setup_polybar;
 
   log "Restarting polybar...";
-
-  killall polybar 2>&1 | log_stdout;
-  ${HOME}/.config/polybar/launch.sh 2>&1 | log_stdout;
+  killall polybar;
+  ${HOME}/.config/polybar/launch.sh &
 }

@@ -89,3 +89,17 @@ safe_clean() {
     myRm $1;
   fi
 }
+
+safe_string_append() {
+  if [ ! -n "$1" ]; then log "safe_string_append needs exactly two arguments"; return; fi
+  if [ ! -n "$2" ]; then log "safe_string_append needs exactly two arguments"; return; fi
+
+  log "Appending \"${1}\" to ${2}";
+
+  if grep -Fxq "$1" $2
+  then
+    log "String already exists in the file";
+  else
+    echo ${1} >> ${2};
+  fi
+}
