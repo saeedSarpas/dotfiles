@@ -51,4 +51,6 @@ setup_gtk_main() {
       *) continue;;
     esac
   done
+
+  log "Use Themix to generate a new theme";
 }

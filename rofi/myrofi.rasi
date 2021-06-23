@@ -9,6 +9,7 @@ location: 0;
 padding: 1500;
          fixed-num-lines: true;
          show-icons: true;
+         icon-theme: "Numix-Circle";
          ssh-client: "ssh";
 eh: 1.5;
     separator-style: "none";

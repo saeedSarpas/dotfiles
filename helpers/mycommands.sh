@@ -3,12 +3,12 @@
 mycommandshere="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 source ${mycommandshere}/logging.sh
 
-myln() {
+myLn() {
   if [ ! -n "$1" ]; then log "myLn needs exactly two arguments"; return; fi
   if [ ! -n "$2" ]; then log "myLn needs exactly two arguments"; return; fi
 
   log "link $1 -> $2";
-  ln -s $2 $1;
+  ln -s $1 $2;
 }
 
 myCp() {

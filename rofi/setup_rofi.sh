@@ -32,6 +32,14 @@ setup_rofi_dpi() {
   echo "dpi: $1;" >>  ${HOME}/.config/rofi/myrofi.rasi;
 }
 
+rofi_install_numix_icons() {
+  safe_mkdir "${HOME}/.local/share/icons";
+
+  git clone https://github.com/numixproject/numix-icon-theme-circle.git ${HOME}/.local/share/icons/Numix-Icons | log_stdout;
+
+  myLn ${HOME}/.local/share/icons/Numix-Icons/Numix-Circle ${HOME}/.local/share/icons/Numix-Circle
+}
+
 rofi_post_setup() {
 
   echo "}" >>  ${HOME}/.config/rofi/myrofi.rasi;
@@ -77,5 +85,6 @@ setup_rofi_main() {
     esac
   done
 
+  rofi_install_numix_icons
   rofi_post_setup
 }
