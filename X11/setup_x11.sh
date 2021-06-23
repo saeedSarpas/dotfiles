@@ -37,7 +37,7 @@ setup_x11_main() {
     read -p "dpi? [h,l]  " dpi;
     case $dpi in
       [Hh])
-        setup_xresources_dpi 256;
+        setup_xresources_dpi 192;
         break;;
       [Ll])
         setup_xresources_dpi 96;
