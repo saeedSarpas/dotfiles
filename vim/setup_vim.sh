@@ -3,6 +3,7 @@
 vimdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 source ${vimdir}/../helpers/logging.sh
 source ${vimdir}/../helpers/mycommands.sh
+source ${vimdir}/../helpers/install.sh
 
 
 setup_vim_soft_links() {
@@ -16,6 +17,9 @@ setup_vim_soft_links() {
 
 setup_vim_main() {
   section 'Vim'
+
+  install 'vim' 'vim' 'macvim'
+
   setup_vim_soft_links;
 
   log "Installing the plugins";

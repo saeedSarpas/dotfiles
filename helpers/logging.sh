@@ -37,3 +37,8 @@ log_stdout() {
     log "\$ $line"
   done
 }
+
+exec_status() {
+  if [[ -n "$1" ]]; then local _status="$1"; else err "exactly 1 argument is needed!"; return; fi
+  if [ "${_status}" -ne 0 ]; then err "[failed]"; else log "[done]"; fi
+}
