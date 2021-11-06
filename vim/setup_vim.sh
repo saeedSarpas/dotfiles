@@ -7,18 +7,17 @@ source ${vimdir}/../helpers/install.sh
 
 
 setup_vim_soft_links() {
-  safe_mkdir "${HOME}/.vim"
-
-  myCp "${vimdir}/vimrc" "${HOME}/.vimrc"
+  safe_mkdir "${HOME}/.vim";
+  myCp "${vimdir}/vimrc" "${HOME}/.vimrc";
 
   curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim;
 }
 
 setup_vim_main() {
-  section 'Vim'
+  section 'Vim';
 
-  install 'vim' 'vim' 'macvim'
+  install 'vim' 'vim' 'macvim';
 
   setup_vim_soft_links;
 
