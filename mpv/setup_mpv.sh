@@ -18,4 +18,3 @@ setup_mpv_main() {
   setup_mpv_config;
 }
 
-

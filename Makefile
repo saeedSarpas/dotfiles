@@ -7,9 +7,7 @@ DEV_DIR := ${HOME}/development
 help :
 	@echo "Targets:";
 	@echo " - hidpi"
-	@echo " - mpv"
 	@echo " - irssi"
-	@echo " - screen"
 
 
 .PHONY : hidpi
@@ -29,17 +27,6 @@ hidpi :
 	@echo "[Thunderbird] set parameter layout.css.devPixelsPerPx to 2"
 	@echo "[Gimp] Use gimp-hidpi"
 	# TODO: Side display section of HiDPI article
-
-
-.PHONY : mpv
-mpv :
-	@mkdir -p ${HOME}/.config/mpv
-	$(call copy, ./mpv/input.conf, ${HOME}/.config/mpv/input.conf)
-
-
-.PHONY : screen
-screen :
-	$(call copy, ./screen/screenrc, ${HOME}/.screenrc)
 
 
 .PHONY : irssi

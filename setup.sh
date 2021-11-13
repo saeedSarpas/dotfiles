@@ -8,6 +8,7 @@ source ./neovim/setup_neovim.sh
 source ./picom/setup_picom.sh
 source ./polybar/setup_polybar.sh
 source ./rofi/setup_rofi.sh
+source ./screen/setup_screen.sh
 source ./termite/setup_termite.sh
 source ./vim/setup_vim.sh
 source ./X11/setup_x11.sh
@@ -26,6 +27,7 @@ main() {
     echo "    o: polybar"
     echo "    p: picom"
     echo "    r: rofi"
+    echo "    s: screen"
     echo "    t: termite"
     echo "    u: grub"
     echo "    v: vim"
@@ -34,7 +36,7 @@ main() {
     echo "    q: quit"
     echo ""
 
-    read -p 'Action? [b,g,i,m,n,o,p,r,t,u,v,x,z,q] ' action
+    read -p 'Action? [b,g,i,m,n,o,p,r,s,t,u,v,x,z,q] ' action
     case $action in
       [Bb]) setup_bluetooth_main;;
       [Ii]) setup_i3_main;;
@@ -44,6 +46,7 @@ main() {
       [Oo]) setup_polybar_main;;
       [Pp]) setup_picom_main;;
       [Rr]) setup_rofi_main;;
+      [Ss]) setup_screen_main;;
       [Tt]) setup_termite_main;;
       [Uu]) setup_grub_main;;
       [Vv]) setup_vim_main;;
