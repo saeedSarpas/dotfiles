@@ -1,48 +1,116 @@
 #!/bin/bash
 
+function fuzzy_select() {
+  local usage='usage: fuzzy_select command [args]';
+
+  if [[ -n "$1" ]]; then local before="$1"; else echo $usage; return; fi
+  if [[ -n "$2" ]]; then local after="$2"; else echo $usage; return; fi
+  shift 2;
+
+  while getopts ":h" opt; do
+    case $opt in
+      h) echo $usage 1>&2: return ;;
+      *) continue;;
+    esac
+  done
+
+  local res=$("$@" | fzf --ansi --color=16 --layout=reverse --inline-info);
+  echo $(echo "$before $res $after" | awk '{$1=$1;print}');
+}
+
+
+# :h - help
+read -r -d '' _help_opts << EOM
+:c -- connect to a server
+:d -- docker
+:n -- navigation
+EOM
+
+
+# :c - connect
+fnction _connect() {
+  local _conn=$(fuzzy_select " " " " echo "${_connect_options}");
+  print -z $_conn;
+}
+
+read -r -d '' _connect_options << EOM
+ssh -XY sarpass@theia.ethz.ch
+ssh -XY sarpass@eos.ethz.ch
+ssh -XY sarpass@hyperion.ethz.ch
+ssh -XY sarpass@selene.ethz.ch
+ssh -XY sarpass@phoebe.ethz.ch
+ssh -XY sarpass@login.phys.ethz.ch
+ssh -XY sarpass@euler.ethz.ch
+ssh -p1234 -XY saeed@gate4.astro.uni-bonn.de
+ssh -XY saeed@hobbes
+EOM
+
+alias :c=_connect;
+
+
+# :d - docker
+function _docker() {
+  local _docker_command=$(fuzzy_select " " " " echo "${_docker_options}");
+
+  local _alias=$(echo ${_docker_command} | awk '{print $1}');
+  local _command=$(echo ${_docker_command} | awk '{$1=""; print $0}' | awk '{$1=$1;print}');
+
+  case ${_alias} in
+    dps) print -z ${_command}; return ;;
+    *) continue;;
+  esac
+}
+
+read -r -d '' _docker_options << EOM
+ps docker ps
+EOM
+
+alias :d=_docker;
+
+
+# :n - navigation
+fnction _navigate() {
+  local _conn=$(fuzzy_select echo "${_navigate_options}");
+  print -z $_conn;
+}
+
+read -r -d '' _navigate_options << EOM
+cd /vol/hobbes/hobbesraid/saeed
+cd /net/galaxy-data/export/galaxydata/saeed
+cd /net/galaxy-data/export/galaxy/shared/MUSE/noBackup/user/saeed
+EOM
+
+alias :n=_navigate;
+
+
 
 # AIfA
-alias aifa-gates='ssh -p1234 -XY saeed@gate4.astro.uni-bonn.de'
-aifa-science() {
-  ssh -XY saeed@science0$1
-}
 aifa-scp() {
-  scp -P 1234 -r saeed@gates.astro.uni-bonn.de:$1 .
+scp -P 1234 -r saeed@gates.astro.uni-bonn.de:$1 .
 }
-alias aifa-hobbes='ssh -XY saeed@hobbes'
-alias hobbes='cd /vol/hobbes/hobbesraid/saeed'
+alias hobbes=''
 
 # ETHZ
 eth() {
   mkdir -p $HOME/development
-    mkdir -p $HOME/development/${1}.remote
-    sshfs sarpass@${1}.ethz.ch:/scratch/saeed $HOME/development/${1}.remote
+  mkdir -p $HOME/development/${1}.remote
+  sshfs sarpass@${1}.ethz.ch:/scratch/saeed $HOME/development/${1}.remote
 }
 
 
 jupyter_remote() {
   if [[ -n "$1" ]]; then host=$1; else host=theia; fi
-    if [[ -n "$2" ]]; then port=$2; else port=8888; fi
+  if [[ -n "$2" ]]; then port=$2; else port=8888; fi
 
-      ssh -N -f -L localhost:${port}:localhost:${port} sarpass@${host}
+  ssh -N -f -L localhost:${port}:localhost:${port} sarpass@${host}
 }
 
-alias theia='ssh -XY sarpass@theia.ethz.ch'
-alias eos='ssh -XY sarpass@eos.ethz.ch'
-alias hyperion='ssh -XY sarpass@hyperion.ethz.ch'
-alias selene='ssh -XY sarpass@selene.ethz.ch'
-alias phoebe='ssh -XY sarpass@phoebe.ethz.ch'
-alias phys='ssh -XY sarpass@login.phys.ethz.ch'
 alias ethvpn='sudo openconnect sslvpn.ethz.ch -u sarpass@student-net.ethz.ch --authgroup=student-net'
-
-# Euler
-alias euler='ssh -XY sarpass@euler.ethz.ch'
 
 # Clear
 alias c='clear'
 
 # Python
-alias py='python'
 alias py2='python2'
 alias py3='python3'
 alias pys='python3 -m http.server'
@@ -149,39 +217,39 @@ alias usr_bin_mv=`which mv`
 
 mvo(){
   args=( $@ );
-  target=${args[$len-1]};
+    target=${args[$len-1]};
 
-  for f in ${args[@]:0:$len-1}; do
-    usr_bin_mv $f $target
-      done
-}
+    for f in ${args[@]:0:$len-1}; do
+      usr_bin_mv $f $target
+    done
+  }
 
 
 mv(){
   args=( $@ );
-  target=${args[$len-1]};
+    target=${args[$len-1]};
 
-  for f in ${args[@]:0:$len-1}; do
-    base=$(basename -- "$f");
+    for f in ${args[@]:0:$len-1}; do
+      base=$(basename -- "$f");
 
-  fname="${base%.*}";
-  ext="${base##*.}";
+      fname="${base%.*}";
+      ext="${base##*.}";
 
-  if [[ -f "$target/${fname}.${ext}" ]]; then
-    i=1;
-  new_fname=$(printf "%s/%s_%02d.%s" $target ${fname} $i ${ext});
-  while [ -f $new_fname ]; do
-    i=$(($i+1));
-  new_fname=$(printf "%s/%s_%02d.%s" $target ${fname} $i ${ext});
-  done
-    echo "$f -> $new_fname"
-    usr_bin_mv $f $new_fname
-  else
-    echo "mv $f $target";
-  usr_bin_mv $f $target
-    fi
+      if [[ -f "$target/${fname}.${ext}" ]]; then
+        i=1;
+        new_fname=$(printf "%s/%s_%02d.%s" $target ${fname} $i ${ext});
+        while [ -f $new_fname ]; do
+          i=$(($i+1));
+          new_fname=$(printf "%s/%s_%02d.%s" $target ${fname} $i ${ext});
+        done
+        echo "$f -> $new_fname"
+        usr_bin_mv $f $new_fname
+      else
+        echo "mv $f $target";
+        usr_bin_mv $f $target
+      fi
     done
-}
+  }
 
 # DNS
 dns(){
@@ -211,19 +279,19 @@ cwatch() {
 
 cbuild() {
   if [ $# -eq 0 ]
-    then
-      cmake -DBUILD_DESC:STRING="$1" .. && make && ctest --timeout 10 --output-on-failure
+  then
+    cmake -DBUILD_DESC:STRING="$1" .. && make && ctest --timeout 10 --output-on-failure
   else
-      cmake -DBUILD_DESC:STRING="$1" .. && make VERBOSE=$2 && ctest --timeout 10 --output-on-failure
+    cmake -DBUILD_DESC:STRING="$1" .. && make VERBOSE=$2 && ctest --timeout 10 --output-on-failure
   fi
 }
 
 cdebug() {
   if [ $# -eq 0 ]
-    then
-      cmake -DBUILD_DESC:STRING="$1" -DCMAKE_BUILD_TYPE=Debug .. && make && ctest --timeout 10 --output-on-failure
+  then
+    cmake -DBUILD_DESC:STRING="$1" -DCMAKE_BUILD_TYPE=Debug .. && make && ctest --timeout 10 --output-on-failure
   else
-      cmake -DBUILD_DESC:STRING="$1" -DCMAKE_BUILD_TYPE=Debug .. && make VERBOSE=$2 && ctest --timeout 10 --output-on-failure
+    cmake -DBUILD_DESC:STRING="$1" -DCMAKE_BUILD_TYPE=Debug .. && make VERBOSE=$2 && ctest --timeout 10 --output-on-failure
   fi
 }
 
@@ -238,9 +306,6 @@ rstr() {
   done
 }
 
-# alaxy-data
-alias gal='cd /net/galaxy-data/export/galaxydata/saeed'
-alias nobkp='cd /net/galaxy-data/export/galaxy/shared/MUSE/noBackup/user/saeed'
 
 # Vim-like
 alias :q='exit'
