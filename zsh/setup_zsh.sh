@@ -6,12 +6,15 @@ source ${zshdir}/../helpers/mycommands.sh;
 
 
 zsh_setup() {
-  myCp "${zshdir}/zshrc" "${HOME}/.zshrc"
-  myCp "${zshdir}/zaliases" "${HOME}/.zaliases"
-  myCp "${zshdir}/zshenv" "${HOME}/.zshenv"
-  myTouch "${HOME}/.zshrc.local"
-  myTouch "${HOME}/.zaliases.local"
-  myTouch "${HOME}/.zshenv.local"
+  myCp "${zshdir}/zshrc" "${HOME}/.zshrc";
+  myCp "${zshdir}/zaliases" "${HOME}/.zaliases";
+  safe_mkdir "${HOME}/.zaliases.d";
+  myCp "${zshdir}/.zaliases.d" "${HOME}";
+  myCp "${zshdir}/.zaliases.d/connect.sh" "${HOME}/.zaliases.d/connect.sh";
+  myCp "${zshdir}/zshenv" "${HOME}/.zshenv";
+  myTouch "${HOME}/.zshrc.local";
+  myTouch "${HOME}/.zaliases.local";
+  myTouch "${HOME}/.zshenv.local";
 }
 
 setup_zsh_main() {

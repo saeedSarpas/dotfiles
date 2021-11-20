@@ -1,195 +1,37 @@
-#!/bin/bash
+#!/usr/bin/env bash
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)";
+source ${HOME}/.zaliases.d/utils.sh;
 
-function fuzzy_select() {
-  local usage='usage: fuzzy_select command [args]';
-  if [[ ! -n "$1" ]]; then echo $usage; return; fi
+function _help() {
+  local _help_item=$(fuzzy_select echo "${_help_options}" | awk '{print $1}');
 
-  while getopts ":h" opt; do
-    case $opt in
-      h) echo $usage 1>&2: return ;;
-      *) continue;;
-    esac
-  done
-
-  local item=$("$@" | fzf --ansi --color=16 --layout=reverse --inline-info);
-  echo "${before} ${item} ${after}";
+  case "${_help_item}" in
+    ":c") $(_connect_help);;
+    ":D") $(_docker_help);;
+    ":DC") $(_docker_compose_help);;
+    ":J") $(_java_help);;
+    ":JG") $(_java_help);;
+    ":n") $(_navigate_help);;
+  esac
 }
 
-function to_term_buffer() {
-  local usage='usage: to_term_buffer command';
-  if [[ -n "$1" ]]; then local _command="$1"; else echo $usage; return; fi
-
-  print -z $(echo ${_command} |  awk '{$1=$1;print}');
-}
-
-
-# :h - help
-read -r -d '' _help_opts << EOM
-:c -- connect to a server
-:d -- docker
-:n -- navigation
+# :H - help
+read -r -d '' _help_options << EOM
+:c  -- connect to a server
+:D  -- docker aliases
+:DC -- docker-compose aliases
+:J  -- java aliases
+:JG -- gradle aliases
+:n  -- navigate aliases
 EOM
 
+alias :H=_help;
 
-# :c - connect
-fnction _connect() {
-  local _conn=$(fuzzy_select echo "${_connect_options}");
-  to_term_buffer ${_conn};
-}
-
-read -r -d '' _connect_options << EOM
-ssh -XY sarpass@theia.ethz.ch
-ssh -XY sarpass@eos.ethz.ch
-ssh -XY sarpass@hyperion.ethz.ch
-ssh -XY sarpass@selene.ethz.ch
-ssh -XY sarpass@phoebe.ethz.ch
-ssh -XY sarpass@login.phys.ethz.ch
-ssh -XY sarpass@euler.ethz.ch
-ssh -p1234 -XY saeed@gate4.astro.uni-bonn.de
-ssh -XY saeed@hobbes
-EOM
-
-alias :c=_connect;
-
-
-# :d - docker
-function _docker_help() {
-  local _docker_command=$(fuzzy_select echo "${_docker_options}");
-  local _command=$(echo ${_docker_command} | awk '{$1=""; print $0}' | awk '{$1=$1;print}');
-
-  to_term_buffer ${_command};
-}
-
-read -r -d '' _docker_options << EOM
-:da     docker attach <container>
-
-:db     docker build -t <tag> .
-:dbf    docker build -t <tag> -f <Dockerfile>
-
-:dc     docker commit <container> <name:tag>
-:dcc    docker commit --change=<change> <container> <name:tag>
-
-:dd     docker rm <container>
-:dda    docker rm -f \$(docker ps -a -q)
-:ddi    docker rmi <image>
-:ddia   docker rmi -f \$(docker images -a -q)
-
-:dps    docker ps
-:dpsa   docker ps -a
-
-:di     docker images
-
-:dpull  docker pull <image>
-
-:drun   docker run <image>
-:druni  docker run -it <image>
-:drund  docker run -d <image>
-:drunid docker run -it -d <image>
-:-      docker run -it -d --restart unless-stopped <image>
-
-:ds     docker search <term>
-
-:dstop  docker stop <container>
-EOM
-
-alias :d=_docker_help;
-alias :da=_docker_attach;
-alias :db='docker build -t <name:tag> .';
-alias :dbf='docker build -t <name:tag> -f <Dockerfile>';
-alias :dc=_docker_commit;
-alias :dcc=_docker_commit_change;
-alias :dd=_docker_delete;
-alias :dda='docker rm -f $(docker ps -a -q)';
-alias :ddi=_docker_delete_image;
-alias :ddia='docker rmi -f $(docker images -a -q)';
-alias :dps='docker ps';
-alias :dpsa='docker ps -a';
-alias :di='docker images';
-alias :dpull=_docker_pull;
-alias :drun=_docker_run;
-alias :druni='_docker_run "bash"';
-alias :drund='_docker_run "daemon"';
-alias :drunid='_docker_run "interactive-daemon"';
-alias :ds=_docker_search;
-alias :dstop=_docker_stop;
-
-function _docker_attach() {
-  local _container=$(fuzzy_select docker ps | awk '{print $1}');
-  to_term_buffer "docker attach ${_container}";
-}
-
-function _docker_commit() {
-  local _container=$(fuzzy_select docker ps | awk '{print $1}');
-  to_term_buffer "docker commit ${_container}";
-}
-
-function _docker_commit_change() {
-  local _container=$(fuzzy_select docker ps | awk '{print $1}');
-  to_term_buffer "docker commit --change=<change> ${_container}";
-}
-
-function _docker_delete() {
-  local _container=$(fuzzy_select docker ps -a | awk '{print $1}');
-  to_term_buffer "docker rm ${_container}";
-}
-
-function _docker_delete_image() {
-  local _image=$(fuzzy_select docker images | awk '{print $1}');
-  to_term_buffer "docker rmi ${_image}";
-}
-
-function _docker_search() {
-  local usage='usage: _docker_search before term [args]';
-  if [[ -n "$1" ]]; then local _before="$1"; else echo $usage; return; fi
-  if [[ -n "$2" ]]; then local term="$2"; else echo $usage; return; fi
-  shift 1;
-
-  local _docker_image=$(fuzzy_select docker search $@ | awk '{print $1}');
-  to_term_buffer "${_before} ${_docker_image}";
-}
-
-function _docker_pull() {
-  _docker_search "docker pull" $@
-}
-
-function _docker_run() {
-  local usage='usage: _docker_run [mode]';
-  local _image=$(fuzzy_select docker images | awk '{print $1}');
-
-  if [[ -n "$1" ]]; then
-    local _mode="$1";
-
-    case "${_mode}" in
-      "bash") to_term_buffer "docker run -it ${_image}";;
-      "daemon") to_term_buffer "docker run -d ${_image}";;
-      "interactive-daemon") to_term_buffer "docker run -it -d ${_image}";;
-      *) continue;;
-    esac
-  else
-    to_term_buffer "docker run ${_image}";
-  fi
-}
-
-function _docker_stop() {
-  local _container=$(fuzzy_select docker ps | awk '{print $1}');
-  to_term_buffer "docker stop ${_container}";
-}
-
-
-# :n - navigation
-fnction _navigate() {
-  local _conn=$(fuzzy_select echo "${_navigate_options}");
-  print -z $_conn;
-}
-
-read -r -d '' _navigate_options << EOM
-cd /vol/hobbes/hobbesraid/saeed
-cd /net/galaxy-data/export/galaxydata/saeed
-cd /net/galaxy-data/export/galaxy/shared/MUSE/noBackup/user/saeed
-EOM
-
-alias :n=_navigate;
-
+source ${HOME}/.zaliases.d/connect.sh
+source ${HOME}/.zaliases.d/docker.sh
+source ${HOME}/.zaliases.d/docker_compose.sh
+source ${HOME}/.zaliases.d/java.sh
+source ${HOME}/.zaliases.d/navigate.sh
 
 
 # AIfA
