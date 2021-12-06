@@ -24,6 +24,9 @@ read -r -d '' _docker_options << EOM
 :Ddi    docker rmi <image>
 :Ddia   docker rmi -f \$(docker images -a -q)
 
+:De     docker exec -it <container> /bin/sh
+:Deb     docker exec -it <container> /bin/bash
+
 :Dps    docker ps
 :Dpsa   docker ps -a
 
@@ -52,6 +55,8 @@ alias :Dd=_docker_delete;
 alias :Dda='docker rm -f $(docker ps -a -q)';
 alias :Ddi=_docker_delete_image;
 alias :Ddia='docker rmi -f $(docker images -a -q)';
+alias :De=_docker_exec "/bin/sh";
+alias :Deb=_docker_exec "/bin/bash";
 alias :Dps='docker ps';
 alias :Dpsa='docker ps -a';
 alias :Di='docker images';
@@ -86,6 +91,13 @@ function _docker_delete() {
 function _docker_delete_image() {
   local _image=$(fuzzy_select docker images | awk '{print $1}');
   to_term_buffer "docker rmi ${_image}";
+}
+
+function _docker_exec() {
+  local usage='usage: _docker_exec command';
+  if [[ -n "$1" ]]; then local _cmd="$1"; else echo $usage; return; fi
+  local _container=$(fuzzy_select docker ps -a | awk '{print $1}');
+  to_term_buffer "docker exec -it ${_container} ${_cmd}";
 }
 
 function _docker_search() {
