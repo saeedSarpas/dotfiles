@@ -25,7 +25,7 @@ read -r -d '' _docker_options << EOM
 :Ddia   docker rmi -f \$(docker images -a -q)
 
 :De     docker exec -it <container> /bin/sh
-:Deb     docker exec -it <container> /bin/bash
+:Deb    docker exec -it <container> /bin/bash
 
 :Dps    docker ps
 :Dpsa   docker ps -a
@@ -55,8 +55,8 @@ alias :Dd=_docker_delete;
 alias :Dda='docker rm -f $(docker ps -a -q)';
 alias :Ddi=_docker_delete_image;
 alias :Ddia='docker rmi -f $(docker images -a -q)';
-alias :De=_docker_exec "/bin/sh";
-alias :Deb=_docker_exec "/bin/bash";
+function :De() {_docker_exec "/bin/sh";}
+function :Deb() {_docker_exec "/bin/bash";}
 alias :Dps='docker ps';
 alias :Dpsa='docker ps -a';
 alias :Di='docker images';

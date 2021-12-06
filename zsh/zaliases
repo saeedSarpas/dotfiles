@@ -11,6 +11,7 @@ function _help() {
     ":DC") $(_docker_compose_help);;
     ":J") $(_java_help);;
     ":JG") $(_java_help);;
+    ":LB") $(_linux_backlight_help);;
     ":n") $(_navigate_help);;
   esac
 }
@@ -22,11 +23,13 @@ read -r -d '' _help_options << EOM
 :DC -- docker-compose aliases
 :J  -- java aliases
 :JG -- gradle aliases
+:LB -- linux backlight
 :n  -- navigate aliases
 EOM
 
 alias :H=_help;
 
+source ${HOME}/.zaliases.d/backlight.sh
 source ${HOME}/.zaliases.d/connect.sh
 source ${HOME}/.zaliases.d/docker.sh
 source ${HOME}/.zaliases.d/docker_compose.sh
