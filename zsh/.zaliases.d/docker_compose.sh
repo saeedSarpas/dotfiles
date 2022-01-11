@@ -11,14 +11,14 @@ function _docker_compose_help() {
 }
 
 read -r -d '' _docker_compose_options << EOM
-:DCf   docker-compose -f Dockerfile
+:DCf   docker-compose -f
 :DCfu  docker-compose -f <Dockerfile> up
 :DCfd  docker-compose -f <Dockerfile> down
 :DCfl  docker-compose -f <Dockerfile> logs
-:DCff  docker-compose -f Dockerfile
-:DCffu docker-compose -f Dockerfile up
-:DCffd docker-compose -f Dockerfile down
-:DCffl docker-compose -f Dockerfile logs
+:DCp   docker-compose ps
+:DCu docker-compose up
+:DCd docker-compose down
+:DCl docker-compose logs
 EOM
 
 alias :DC=_docker_compose_help;
@@ -26,10 +26,10 @@ alias :DCf=_docker_compose_file
 alias :DCfu=_docker_compose_file_up
 alias :DCfd=_docker_compose_file_down
 alias :DCfl=_docker_compose_file_logs
-alias :DCff='docker-compose -f Dockerfile'
-alias :DCffu='docker-compose -f Dockerfile up'
-alias :DCffd='docker-compose -f Dockerfile down'
-alias :DCffl='docker-compose -f Dockerfile logs'
+alias :DCp='docker-compose ps'
+alias :DCu='docker-compose up'
+alias :DCd='docker-compose down'
+alias :DCl='docker-compose logs'
 
 
 function _docker_compose_file() {

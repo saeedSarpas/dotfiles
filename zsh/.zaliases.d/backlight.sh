@@ -10,7 +10,7 @@ function _linux_backlight_help() {
   to_term_buffer ${_command};
 }
 
-read -r -d '' _docker_options << EOM
+read -r -d '' _linux_backlight_options << EOM
 :LBem sudo modprobe i2c-dev
 :LBeg sudo ddcutil getvcp 10
 :LBes sudo ddcutil setvcp 10
