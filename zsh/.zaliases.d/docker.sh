@@ -5,7 +5,7 @@ source ${HOME}/.zaliases.d/utils.sh;
 # :D - docker
 
 function _docker_help() {
-  local _command=$(fuzzy_select echo "${_docker_options} | awk '{$1=""; print $0}'");
+  local _command=$(fuzzy_select echo "${_docker_options}" | awk '{$1=""; print $0}');
 
   to_term_buffer ${_command};
 }
@@ -32,6 +32,10 @@ read -r -d '' _docker_options << EOM
 
 :Di     docker images
 
+:Dl     docker logs <container>
+:Dlf    docker logs -f <container>
+:Dlft   docker logs -f --tail=1000 <container>
+
 :Dpull  docker pull <image>
 
 :Drun   docker run <image>
@@ -43,6 +47,12 @@ read -r -d '' _docker_options << EOM
 :Ds     docker search <term>
 
 :Dstop  docker stop <container>
+
+:Dvc docker volume create --driver local --opt type=none --opt device=<path> --opt o=bind web_data
+:Dvi docker volume inspect <volume_name>
+:Dvl docker volume ls
+:Dvp docker volume prune
+:Dvr docker volume rm <volume_name>
 EOM
 
 alias :D=_docker_help;
@@ -60,6 +70,9 @@ function :Deb() {_docker_exec "/bin/bash";}
 alias :Dps='docker ps';
 alias :Dpsa='docker ps -a';
 alias :Di='docker images';
+function :Dl() {_docker_logs " ";}
+function :Dlf() {_docker_logs "-f";}
+function :Dlft() {_docker_logs "-f --tail=1000";}
 alias :Dpull=_docker_pull;
 alias :Drun=_docker_run;
 alias :Druni='_docker_run "bash"';
@@ -98,6 +111,13 @@ function _docker_exec() {
   if [[ -n "$1" ]]; then local _cmd="$1"; else echo $usage; return; fi
   local _container=$(fuzzy_select docker ps -a | awk '{print $1}');
   to_term_buffer "docker exec -it ${_container} ${_cmd}";
+}
+
+function _docker_logs() {
+  local usage='usage: _docker_logs flags';
+  if [[ -n "$1" ]]; then local _flags="$1"; else echo $usage; return; fi
+  local _container=$(fuzzy_select docker ps -a | awk '{print $1}');
+  to_term_buffer "docker logs  ${_flags} ${_container}";
 }
 
 function _docker_search() {

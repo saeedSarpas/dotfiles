@@ -4,7 +4,7 @@ source ${HOME}/.zaliases.d/utils.sh;
 
 # :c - connect
 fnction _connect_help() {
-  local _command=$(fuzzy_select echo "${_connect_options}");
+  local _command=$(fuzzy_select echo "${_connect_options}" | awk '{$1=""; print $0}');
 
   to_term_buffer ${_command};
 }

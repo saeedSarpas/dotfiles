@@ -4,7 +4,7 @@ source ${HOME}/.zaliases.d/utils.sh;
 
 # :J - java
 fnction _java_help() {
-  local _command=$(fuzzy_select echo "${_java_options} | awk '{$1=""; print $0}'");
+  local _command=$(fuzzy_select echo "${_java_options}" | awk '{$1=""; print $0}');
 
   to_term_buffer ${_command};
 }

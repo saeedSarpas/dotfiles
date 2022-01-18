@@ -5,7 +5,7 @@ source ${HOME}/.zaliases.d/utils.sh;
 # :D - docker-compose
 
 function _docker_compose_help() {
-  local _command=$(fuzzy_select echo "${_docker_compose_options} | awk '{$1=""; print $0}'");
+  local _command=$(fuzzy_select echo "${_docker_compose_options}" | awk '{$1=""; print $0}');
 
   to_term_buffer ${_command};
 }
@@ -16,9 +16,9 @@ read -r -d '' _docker_compose_options << EOM
 :DCfd  docker-compose -f <Dockerfile> down
 :DCfl  docker-compose -f <Dockerfile> logs
 :DCp   docker-compose ps
-:DCu docker-compose up
-:DCd docker-compose down
-:DCl docker-compose logs
+:DCu   docker-compose up
+:DCd   docker-compose down
+:DCl   docker-compose logs
 EOM
 
 alias :DC=_docker_compose_help;

@@ -4,7 +4,7 @@ source ${HOME}/.zaliases.d/utils.sh;
 
 # :n - navigation
 fnction _navigate_help() {
-  local _command=$(fuzzy_select echo "${_navigate_options}");
+  local _command=$(fuzzy_select echo "${_navigate_options}" | awk '{$1=""; print $0}');
   print -z $_command;
 }
 

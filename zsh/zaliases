@@ -9,6 +9,7 @@ function _help() {
     ":c") $(_connect_help);;
     ":D") $(_docker_help);;
     ":DC") $(_docker_compose_help);;
+    ":H") $(_helpers_help);;
     ":J") $(_java_help);;
     ":JG") $(_java_help);;
     ":LB") $(_linux_backlight_help);;
@@ -21,18 +22,20 @@ read -r -d '' _help_options << EOM
 :c  -- connect to a server
 :D  -- docker aliases
 :DC -- docker-compose aliases
+:H  -- helpers aliases
 :J  -- java aliases
 :JG -- gradle aliases
 :LB -- linux backlight
 :n  -- navigate aliases
 EOM
 
-alias :H=_help;
+alias :=_help;
 
 source ${HOME}/.zaliases.d/backlight.sh
 source ${HOME}/.zaliases.d/connect.sh
 source ${HOME}/.zaliases.d/docker.sh
 source ${HOME}/.zaliases.d/docker_compose.sh
+source ${HOME}/.zaliases.d/helpers.sh
 source ${HOME}/.zaliases.d/java.sh
 source ${HOME}/.zaliases.d/navigate.sh
 
