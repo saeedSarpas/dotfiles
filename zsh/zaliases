@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)";
 source ${HOME}/.zaliases.d/utils.sh;
 
@@ -164,9 +165,6 @@ alias gsur="git submodule update --recursive --remote"
 alias gsa="git submodule add"
 alias ggpushskipci="ggpush --push-option=ci.skip"
 
-# Watch
-alias watch='watch '
-
 source ~/.zaliases.local
 
 
@@ -176,39 +174,98 @@ alias usr_bin_mv=`which mv`
 
 mvo(){
   args=( $@ );
-    target=${args[$len-1]};
+  target=${args[$len-1]};
 
-    for f in ${args[@]:0:$len-1}; do
-      usr_bin_mv $f $target
-    done
-  }
-
+  for f in ${args[@]:0:$len-1}; do
+    usr_bin_mv $f $target
+  done
+}
 
 mv(){
-  args=( $@ );
-    target=${args[$len-1]};
+  args=( "$@" )
+  len=${#args[@]}
+  target=${args[len-1]}
 
-    for f in ${args[@]:0:$len-1}; do
-      base=$(basename -- "$f");
+  for f in "${args[@]:0:len-1}"; do
+    if [[ -d "$f" ]]; then
+      dir_base=$(basename -- "$f")
+      new_dirname=$dir_base
+      i=1
+      while [[ -e "$target/$new_dirname" ]]; do
+        new_dirname="${dir_base}_$i"
+        ((i++))
+      done
+      echo "mv $f $target/$new_dirname"
+      /usr/bin/mv "$f" "$target/$new_dirname"
+    elif [[ -f "$f" ]]; then
+      base=$(basename -- "$f")
+      fname="${base%.*}"
+      ext="${base##*.}"
 
-      fname="${base%.*}";
-      ext="${base##*.}";
-
-      if [[ -f "$target/${fname}.${ext}" ]]; then
-        i=1;
-        new_fname=$(printf "%s/%s_%02d.%s" $target ${fname} $i ${ext});
-        while [ -f $new_fname ]; do
-          i=$(($i+1));
-          new_fname=$(printf "%s/%s_%02d.%s" $target ${fname} $i ${ext});
+      if [[ -f "$target/$fname.$ext" ]]; then
+        i=1
+        new_fname=$(printf "%s/%s_%02d.%s" "$target" "$fname" $i "$ext")
+        while [[ -f $new_fname ]]; do
+          ((i++))
+          new_fname=$(printf "%s/%s_%02d.%s" "$target" "$fname" $i "$ext")
         done
         echo "$f -> $new_fname"
-        usr_bin_mv $f $new_fname
+        /usr/bin/mv "$f" "$new_fname"
       else
-        echo "mv $f $target";
-        usr_bin_mv $f $target
+        echo "mv $f $target"
+        /usr/bin/mv "$f" "$target"
       fi
-    done
-  }
+    else
+      echo "$f is not a valid file or directory"
+    fi
+  done
+}
+
+rm() {
+  args=( "$@" );
+  target="$HOME/.local/share/Trash/files"
+
+  mkdir -p "$target"
+
+  for f in "${args[@]}"; do
+    trimmed="${f#"${f%%[![:space:]]*}"}"
+    if [[ ${trimmed:0:1} == "-" ]]; then
+      continue
+    fi
+
+    if [[ -d "$f" ]]; then
+      dir_base=$(basename -- "$f")
+      new_dirname=$dir_base
+      i=1
+      while [[ -e "$target/$new_dirname" ]]; do
+        new_dirname="${dir_base}_$i"
+        ((i++))
+      done
+      echo "mv $f $target/$new_dirname"
+      /usr/bin/mv "$f" "$target/$new_dirname"
+    elif [[ -f "$f" ]]; then
+      base=$(basename -- "$f")
+      fname="${base%.*}"
+      ext="${base##*.}"
+
+      if [[ -f "$target/$fname.$ext" ]]; then
+        i=1
+        new_fname=$(printf "%s/%s_%02d.%s" "$target" "$fname" $i "$ext")
+        while [[ -f $new_fname ]]; do
+          ((i++))
+          new_fname=$(printf "%s/%s_%02d.%s" "$target" "$fname" $i "$ext")
+        done
+        echo "$f -> $new_fname"
+        /usr/bin/mv "$f" "$new_fname"
+      else
+        echo "mv $f $target"
+        /usr/bin/mv "$f" "$target"
+      fi
+    else
+      echo "$f is not a valid file or directory"
+    fi
+  done
+}
 
 # DNS
 dns(){
