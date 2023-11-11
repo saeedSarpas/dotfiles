@@ -322,6 +322,106 @@ rstr() {
   done
 }
 
+audit() {
+  if grep -q "Arch Linux" /etc/os-release; then
+    sudo pacman -S arch-audit
+    arch-audit
+    arch-audit -u | yay -Syu --
+
+    sudo pacman -S clamav
+    sudo freshclam
+    sudo clamscan -r /
+  else
+    echo "Distros other than Arch Linux is not supported yet."
+  fi
+}
+
+
+audit_connected_ips() {
+  ips=$(sudo netstat -tupn | awk '{print $5}' | cut -d: -f1 | sort | uniq)
+
+  while read -r ip; do
+      if echo $ip | grep -Pq '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'; then
+          if [[ $ip =~ ^127\.0\.0\. || $ip =~ ^192\.168\. ]]; then
+            continue  # Skip the loop iteration
+          fi
+
+          echo "Checking ip: '$ip'"
+          echo "------------------------------"
+          pid=$(sudo netstat -tupn | awk -v ip="$ip" '$5 == ip {print $7}' | cut -d/ -f1)
+          # software=$(sudo lsof -p "$pid" 2>/dev/null | awk 'NR==2 {print $1}')
+          # echo "Software: $software"
+
+
+          echo "Network Stats: $(cat "/proc/$pid/net/dev" | awk '/^[[:space:]]*[^ ]/ { printf "Interface: %s\nReceived: %.2f MB\nTransmitted: %.2f MB\n", $1, $2/1024/1024, $10/1024/1024 }')"
+          # echo "Memory Stats: $(cat "/proc/$pid/status" | grep "VmSize\|VmRSS")"
+          # echo "Active connection: $(netstat -np | grep $pid)"
+
+
+          # reputation=$(curl -s "http://ip-api.com/json/${ip}?fields=status,message,country,regionName,city,isp,org,as,reverse")
+          #
+          # echo "Reputation of IP ${ip}:"
+          # echo ${reputation} | jq
+          # echo
+          echo "------------------------------"
+          echo
+      else
+          echo "$ip is not a valid IP"
+      fi
+  done <<< "$ips"
+}
+
+audit_packages() {
+  if grep -q "Arch Linux" /etc/os-release; then
+    sudo pacman -S arch-audit
+    arch-audit
+    arch-audit -u | yay -Syu --
+  else
+    echo "Distros other than Arch Linux is not supported yet."
+  fi
+}
+
+audit_files() {
+    sudo pacman -S clamav
+    sudo freshclam
+    sudo clamscan -r / | tee /var/lib/clamav/$(data + '%y%m%d%H%M%S')_scan.txt
+}
+
+audit_connected_ips() {
+  ips=$(sudo netstat -tupn | awk '{print $5}' | cut -d: -f1 | sort | uniq)
+
+  while read -r ip; do
+      if echo $ip | grep -Pq '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'; then
+          if [[ $ip =~ ^127\.0\.0\. || $ip =~ ^192\.168\. ]]; then
+            continue  # Skip the loop iteration
+          fi
+
+          echo "Checking ip: '$ip'"
+          echo "------------------------------"
+          pid=$(sudo netstat -tupn | awk -v ip="$ip" '$5 == ip {print $7}' | cut -d/ -f1)
+          software=$(sudo lsof -p "$pid" 2>/dev/null | awk 'NR==2 {print $1}')
+          echo "Software: $software"
+
+          echo "Network Stats: $(cat "/proc/$pid/net/dev" | awk '/^[[:space:]]*[^ ]/ { printf "Interface: %s\nReceived: %.2f MB\nTransmitted: %.2f MB\n", $1, $2/1024/1024, $10/1024/1024 }')"
+          # echo "Memory Stats: $(cat "/proc/$pid/status" | grep "VmSize\|VmRSS")"
+          # echo "Active connection: $(netstat -np | grep $pid)"
+
+          reputation=$(curl -s "http://ip-api.com/json/${ip}?fields=status,message,country,regionName,city,isp,org,as,reverse")
+          echo "Reputation of IP ${ip}:"
+          echo ${reputation} | jq
+
+          echo "------------------------------"
+          echo
+      else
+          echo "$ip is not a valid IP"
+      fi
+  done <<< "$ips"
+}
+
+store_ssh_key() {
+  eval $(ssh-agent)
+  ssh-add ~/.ssh/id_ed25519
+}
 
 # Vim-like
 alias :q='exit'
