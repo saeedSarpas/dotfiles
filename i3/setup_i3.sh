@@ -28,11 +28,11 @@ setup_kde_bar() {
 	myAppend ${i3dir}/i3-kde.config ${HOME}/.config/i3/config;
 }
 
-setup_polybar() {
+setup_i3_polybar() {
   safe_mkdir "${HOME}/.config/polybar";
-  safe_clean "${HOME}/.config/polybar/config";
+  safe_clean "${HOME}/.config/polybar/config.ini";
 
-  myCp "${i3dir}/../polybar/polybar.config" "${HOME}/.config/polybar/config";
+  myCp "${i3dir}/../polybar/polybar.config" "${HOME}/.config/polybar/config.ini";
   myCp "${i3dir}/../polybar/polybar-launch.sh" "${HOME}/.config/polybar/launch.sh";
 	chmod +x ${HOME}/.config/polybar/launch.sh;
 
@@ -82,11 +82,10 @@ setup_i3_main() {
         setup_kde_bar;
         break;;
       [Pp])
-        setup_polybar;
+        setup_i3_polybar;
         break;;
       *) continue;;
     esac
-
   done
 
   i3_post_setup;

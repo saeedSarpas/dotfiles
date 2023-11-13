@@ -8,7 +8,7 @@ source ${polybardir}/../helpers/mycommands.sh;
 setup_polybar() {
   safe_mkdir "${HOME}/.config/polybar";
 
-  myCp "${polybardir}/polybar.config" "${HOME}/.config/polybar/config";
+  myCp "${polybardir}/polybar.config" "${HOME}/.config/polybar/config.ini";
   myCp "${polybardir}/polybar-launch.sh" "${HOME}/.config/polybar/launch.sh";
 
   chmod +x ${HOME}/.config/polybar/launch.sh;

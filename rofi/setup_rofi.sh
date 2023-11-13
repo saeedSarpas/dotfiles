@@ -18,10 +18,7 @@ rofi_pre_setup() {
 
 setup_rofi_nord() {
   log "Setting up Nord scheme"
-  echo "color-normal: \"argb:00${nord_purple}, argb:ff${nord_white2}, argb:00${nord_purple}, argb:aa${nord_purple}, argb:00${nord_blue3}\";" >> ${HOME}/.config/rofi/myrofi.rasi;
-  echo "color-urgent: \"argb:ff${nord_red}, argb:ff${nord_white2}, argb:00${nord_purple}, argb:00${nord_purple}, argb:ff${nord_blue3}\";" >> ${HOME}/.config/rofi/myrofi.rasi;
-  echo "color-active: \"argb:00${nord_purple}, argb:ff${nord_white2}, argb:00${nord_purple}, argb:00${nord_purple}, argb:ff${nord_blue3}\";" >> ${HOME}/.config/rofi/myrofi.rasi;
-  echo "color-window: \"argb:dd${nord_dark0}, argb:dd${nord_dark0}, argb:dd${nord_dark0}\";" >> ${HOME}/.config/rofi/myrofi.rasi;
+  myCp "${rofidir}/nord.rasi" "${HOME}/.config/rofi/nord.rasi"
 }
 
 
@@ -43,6 +40,7 @@ rofi_install_numix_icons() {
 rofi_post_setup() {
 
   echo "}" >>  ${HOME}/.config/rofi/myrofi.rasi;
+  echo "@theme \"nord\"" >>  ${HOME}/.config/rofi/myrofi.rasi;
 }
 
 setup_rofi_main() {
